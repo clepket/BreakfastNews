@@ -9,4 +9,6 @@
     <string name="nav_header_subtitle">Gestão de Projeto de Software 18/19</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-</resources>
+    <string name="tv_config_keyword">Keywords</string>
+    <string name="tv_config_jornalists">Jornalistas</string>
+    </resources>
