@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_op_news"
+            android:icon="@drawable/ic_rss_feed_black_24dp"
+            android:title="@string/menu_op_feed" />
+        <item
+            android:id="@+id/menu_op_fav"
+            android:icon="@drawable/ic_favorite_black_24dp"
+            android:title="@string/menu_op_fav" />
+        <item
+            android:id="@+id/menu_op_perfil"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="@string/menu_op_perfil" />
+
+    </group>
+</menu>
