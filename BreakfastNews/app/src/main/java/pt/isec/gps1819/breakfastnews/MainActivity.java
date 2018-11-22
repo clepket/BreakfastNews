@@ -3,6 +3,7 @@ package pt.isec.gps1819.breakfastnews;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,13 +14,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class BaseActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base);
+        setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
@@ -48,21 +49,21 @@ public class BaseActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        /*if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }*/
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        switch (item.getItemId()){
+            case R.id.nav_feed:
+                //setTitle(getResources().getString(R.string.app_name) + " - " + getResources().getString(R.string.frag_title_feed));
+                fragmentManager.beginTransaction().replace(R.id.fragment, new FeedFragment()).commit();
+                break;
+            case R.id.nav_favorites:
+                //setTitle(getResources().getString(R.string.app_name) + " - " + getResources().getString(R.string.frag_title_favorites));
+                fragmentManager.beginTransaction().replace(R.id.fragment, new FavoriteFragment()).commit();
+                break;
+            case R.id.nav_config:
+                //setTitle(getResources().getString(R.string.app_name) + " - " + getResources().getString(R.string.frag_title_config));
+                fragmentManager.beginTransaction().replace(R.id.fragment, new ConfigFragment()).commit();
+                break;
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

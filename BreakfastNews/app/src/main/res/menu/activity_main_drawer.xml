@@ -5,17 +5,17 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/menu_op_news"
+            android:id="@+id/nav_feed"
             android:icon="@drawable/ic_rss_feed_black_24dp"
-            android:title="@string/menu_op_feed" />
+            android:title="@string/frag_title_feed" />
         <item
-            android:id="@+id/menu_op_fav"
+            android:id="@+id/nav_favorites"
             android:icon="@drawable/ic_favorite_black_24dp"
-            android:title="@string/menu_op_fav" />
+            android:title="@string/frag_title_favorites" />
         <item
-            android:id="@+id/menu_op_perfil"
+            android:id="@+id/nav_config"
             android:icon="@drawable/ic_settings_black_24dp"
-            android:title="@string/menu_op_perfil" />
-
+            android:title="@string/frag_title_config" />
     </group>
+
 </menu>

@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">BreakfastNews</string>
+    <string name="frag_title_feed">Feed de Notícias</string>
+    <string name="frag_title_favorites">Notícias favorítas</string>
+    <string name="frag_title_config">Perfil</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Breakfast News - G25</string>
+    <string name="nav_header_subtitle">Gestão de Projeto de Software 18/19</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="menu_op_feed">Feed de Notícias</string>
-    <string name="menu_op_fav">Notícias Favoritas</string>
-    <string name="menu_op_perfil">Perfil</string>
 </resources>
