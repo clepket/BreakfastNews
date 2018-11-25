@@ -3,7 +3,7 @@ package pt.isec.gps1819.breakfastnews;
 import java.util.List;
 
 public class SelecionaNoticias {
-    List<Noticia> noticias;
+    List<NewsItem> newsItems;
 
     boolean obtemNoticia(){
 

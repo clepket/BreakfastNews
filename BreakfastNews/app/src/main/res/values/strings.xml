@@ -11,4 +11,5 @@
     <string name="action_settings">Settings</string>
     <string name="tv_config_keyword">Keywords</string>
     <string name="tv_config_jornalists">Jornalistas</string>
+    <string name="news_image">News Image</string>
     </resources>

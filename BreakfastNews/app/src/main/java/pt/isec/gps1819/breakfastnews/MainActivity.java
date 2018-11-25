@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()){
             case R.id.nav_feed:
                 //setTitle(getResources().getString(R.string.app_name) + " - " + getResources().getString(R.string.frag_title_feed));
+                System.out.println("Select 1");
                 fragmentManager.beginTransaction().replace(R.id.fragment, new FeedFragment()).commit();
                 break;
             case R.id.nav_favorites:
