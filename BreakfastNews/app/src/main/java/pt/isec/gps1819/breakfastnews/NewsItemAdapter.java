@@ -21,13 +21,14 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.MyView
     private List<NewsItem> newsList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView newsTitle;
+        public TextView newsTitle, newsReadMore;
         public ImageView newsImage;
         public CardView cardViewItem;
 
         public MyViewHolder(View view){
             super(view);
             newsTitle = (TextView) view.findViewById(R.id.newsTitle);
+            newsReadMore = (TextView) view.findViewById(R.id.newsReadMore);
             newsImage = (ImageView) view.findViewById(R.id.newsImage);
             cardViewItem = (CardView) view.findViewById(R.id.cardViewItem);
         }
@@ -55,7 +56,7 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.MyView
                 .error(R.mipmap.ic_launcher)
                 .into(holder.newsImage);
 
-        holder.cardViewItem.setOnClickListener(new View.OnClickListener(){
+        holder.newsReadMore.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(),"Abre noticia!", Toast.LENGTH_SHORT).show();
