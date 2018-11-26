@@ -18,7 +18,10 @@ import java.util.List;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Fragmento da aplicação que irá apresentar o feed de noticias.
+ *
+ * @author Carlos Pinho
+ * @since 2018-11-22
  */
 public class FeedFragment extends Fragment {
     private RecyclerView recyclerView;

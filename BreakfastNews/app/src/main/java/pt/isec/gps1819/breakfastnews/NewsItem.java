@@ -1,5 +1,11 @@
 package pt.isec.gps1819.breakfastnews;
 
+/**
+ * Classe que serve como <i>dataset</i> das noticias a apresentar.
+ *
+ * @version v1
+ * @since 2018-11-25
+ */
 class NewsItem {
     private static int counter = 0;
     private int id;

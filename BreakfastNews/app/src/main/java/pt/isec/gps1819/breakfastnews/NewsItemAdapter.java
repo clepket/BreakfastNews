@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * Esta classe tem a função de criar um adaptador
- * entre a <b>RecyclerView</b> e <i>dataset</i> da classe NewsItem.
+ * entre a <b>RecyclerView</b> e o <i>dataset</i> NewsItem.
  *
  * @author Carlos Pinho
  * @version v1
