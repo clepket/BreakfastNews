@@ -1,21 +1,25 @@
 package pt.isec.gps1819.breakfastnews;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
-
 import java.util.List;
 
+/**
+ * Esta classe tem a função de criar um adaptador
+ * entre a <b>RecyclerView</b> e <i>dataset</i> da classe NewsItem.
+ *
+ * @author Carlos Pinho
+ * @version v1
+ * @since 2018-11-25
+ */
 public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.MyViewHolder> {
     private Context mContext;
     private List<NewsItem> newsList;
@@ -50,7 +54,6 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.MyView
         NewsItem newsItem = newsList.get(position);
         holder.newsTitle.setText(newsItem.getTitle());
 
-        //Image loader
         Glide.with(mContext)
                 .load(newsItem.getImage())
                 .error(R.mipmap.ic_launcher)
@@ -59,6 +62,7 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.MyView
         holder.newsReadMore.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                /* TODO: Criar "ligação" para o fragmento de ler a noticia */
                 Toast.makeText(view.getContext(),"Abre noticia!", Toast.LENGTH_SHORT).show();
             }
         });

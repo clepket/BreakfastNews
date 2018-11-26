@@ -31,10 +31,7 @@ public class FeedFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View thisView = inflater.inflate(R.layout.fragment_feed, container, false);
 
         recyclerView = (RecyclerView) thisView.findViewById(R.id.recyclerViewNews);
@@ -100,7 +97,6 @@ public class FeedFragment extends Fragment {
         newsItemAdapter.notifyDataSetChanged();
     }
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
-
         private int spanCount;
         private int spacing;
         private boolean includeEdge;
@@ -134,9 +130,6 @@ public class FeedFragment extends Fragment {
         }
     }
 
-    /**
-     * Converting dp to pixel
-     */
     private int dpToPx(int dp) {
         Resources r = getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));

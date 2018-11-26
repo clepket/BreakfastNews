@@ -1,17 +1,13 @@
 package pt.isec.gps1819.breakfastnews;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
@@ -53,7 +49,6 @@ public class MainActivity extends AppCompatActivity
         switch (item.getItemId()){
             case R.id.nav_feed:
                 //setTitle(getResources().getString(R.string.app_name) + " - " + getResources().getString(R.string.frag_title_feed));
-                System.out.println("Select 1");
                 fragmentManager.beginTransaction().replace(R.id.fragment, new FeedFragment()).commit();
                 break;
             case R.id.nav_favorites:
