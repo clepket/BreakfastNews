@@ -27,7 +27,7 @@ import java.io.OutputStreamWriter;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ConfigFragment extends Fragment {
+public class ConfigFragment extends Fragment implements View.OnClickListener {
 
 
     public ConfigFragment() {
@@ -41,32 +41,34 @@ public class ConfigFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        View v = inflater.inflate(R.layout.fragment_config, container, false);
+
         //Permissao para escrever em external storage
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
         }
 
         //variáveis para guardar perfil no ficheiro
-        et_keywords = (EditText) getView().findViewById(R.id.et_keywords);
-        et_journalists = (EditText) getView().findViewById(R.id.et_journalists);
-        btn_config_guardar = (Button) getView().findViewById(R.id.btn_config_guardar);
+        et_keywords = (EditText) v.findViewById(R.id.et_keywords);
+        et_journalists = (EditText) v.findViewById(R.id.et_journalists);
+        btn_config_guardar = (Button) v.findViewById(R.id.btn_config_guardar);
 
         //button listener
-        btn_config_guardar.setOnClickListener(new View.OnClickListener() {
-            @Override
+        btn_config_guardar.setOnClickListener(this);
+            /*@Override
             public void onClick(View v) {
                 String keywords = et_keywords.getText().toString();
                 String jornalistas = et_journalists.getText().toString();
 
                 saveTextAsFile(keywords, jornalistas);
             }
-        });
+        });*/
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_config, container, false);
+        return v;
     }
 
     private void saveTextAsFile(String keywords, String jornalistas) {
-        String fileName = "Pefil.txt";
+        String fileName = "perfil.txt";
 
         //create file
         File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), fileName);
@@ -97,8 +99,16 @@ public class ConfigFragment extends Fragment {
                     Toast.makeText(getContext(), "Permission granted!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), "Permission not granted!", Toast.LENGTH_SHORT).show();
-                    getActivity().finish();
+                    //getActivity().finish();
                 }
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        String keywords = et_keywords.getText().toString();
+        String jornalistas = et_journalists.getText().toString();
+
+        saveTextAsFile(keywords, jornalistas);
     }
 }
