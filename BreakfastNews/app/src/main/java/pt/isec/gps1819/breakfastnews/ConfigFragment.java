@@ -99,7 +99,7 @@ public class ConfigFragment extends Fragment implements View.OnClickListener {
                     Toast.makeText(getContext(), "Permission granted!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), "Permission not granted!", Toast.LENGTH_SHORT).show();
-                    //getActivity().finish();
+                    getActivity().finish();
                 }
         }
     }
