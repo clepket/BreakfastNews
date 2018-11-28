@@ -69,6 +69,7 @@ public class ConfigFragment extends Fragment implements View.OnClickListener {
 
     private void saveTextAsFile(String keywords, String jornalistas) {
         String fileName = "perfil.txt";
+        String enter = "\n";
 
         //create file
         File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), fileName);
@@ -78,7 +79,8 @@ public class ConfigFragment extends Fragment implements View.OnClickListener {
             FileOutputStream fos = new FileOutputStream(file);
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
             fos.write(keywords.getBytes());
-            bw.newLine();
+            fos.write(enter.getBytes());
+            fos.write(enter.getBytes());
             fos.write(jornalistas.getBytes());
             fos.close();
             Toast.makeText(getContext(), "Saved!", Toast.LENGTH_SHORT).show();
