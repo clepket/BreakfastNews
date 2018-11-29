@@ -9,6 +9,8 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,6 +86,7 @@ public class ConfigFragment extends Fragment implements View.OnClickListener {
             fos.write(jornalistas.getBytes());
             fos.close();
             Toast.makeText(getContext(), "Saved!", Toast.LENGTH_SHORT).show();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "File not found!!", Toast.LENGTH_SHORT).show();
@@ -112,5 +115,10 @@ public class ConfigFragment extends Fragment implements View.OnClickListener {
         String jornalistas = et_journalists.getText().toString();
 
         saveTextAsFile(keywords, jornalistas);
+
+        FeedFragment feedFragment = new FeedFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.fragment, feedFragment, feedFragment.getTag()).commit();
+
     }
 }
