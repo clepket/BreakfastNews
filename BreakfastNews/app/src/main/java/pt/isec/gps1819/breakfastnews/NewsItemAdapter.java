@@ -63,7 +63,7 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.MyView
             @Override
             public void onClick(View view) {
                 /* TODO: Criar "ligação" para o fragmento de ler a noticia */
-                Toast.makeText(view.getContext(),"Abre noticia!", Toast.LENGTH_SHORT).show();
+
             }
         });
     }

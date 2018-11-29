@@ -13,4 +13,7 @@
     <string name="tv_config_jornalists">Jornalistas</string>
     <string name="news_image">News Image</string>
     <string name="read_more">LER MAIS</string>
-    </resources>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

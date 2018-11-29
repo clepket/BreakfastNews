@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OpenNewsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/titleBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="315dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="A perigosa missão de resgatar o corpo do missionário morto pelos Sentinela "
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/star"
+                android:layout_width="53dp"
+                android:layout_height="53dp"
+                android:layout_gravity="center"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:src="@android:drawable/btn_star_big_on" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@+id/titleBar"
+            android:layout_alignStart="@+id/titleBar"
+            android:src="@android:drawable/ic_menu_report_image" />
+
+        <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image"
+            android:layout_alignParentStart="true"
+            android:text="A polícia indiana está a tentar resgatar o corpo do jovem norte-americano, que terá sido assassinado por membros de uma tribo, na passada semana. Os Sentinela não estão a facilitar a aproximação."
+            android:textSize="13sp"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/subtitle"
+            android:layout_alignParentStart="true"
+
+            android:text= "proposta foi do PCP e passou com o voto contra do PS e a abstenção do CDS: o Plano Nacional de Vacinação vai passar a incluir as imunizações contra o rotavírus, a meningite B e o vírus do papiloma humano (HPV) - neste caso para rapazes, já que no caso das meninas já fazia parte do Plano Nacional de Vacinação desde 2008.
+
+Foi também aprovada, esta por unanimidade, a proposta dos Verdes para que em todas as unidades do SNS seja ministrado "o medicamento que se destina a tratar a atrofia muscular espinal, aos doentes com tipo I e com tipo II".
+
+        Na nota justificativa, os ecologistas consideraram que "cada dia que passa, sem a possibilidade de acesso ao medicamento, é mais um dia onde [sic] a situação destes doentes se agrava a olhos vistos". Portanto, "o governo deve garantir disponibilidade financeira para que esse tratamento seja assegurado, nos casos de avaliação médica nesse sentido". " />
+
+
+    </RelativeLayout>
+</FrameLayout>
