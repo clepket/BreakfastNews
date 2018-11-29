@@ -32,7 +32,6 @@ public class FeedFragment extends Fragment {
         newsList = new ArrayList<>();
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View thisView = inflater.inflate(R.layout.fragment_feed, container, false);
