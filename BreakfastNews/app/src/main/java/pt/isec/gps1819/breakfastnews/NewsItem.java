@@ -10,15 +10,17 @@ class NewsItem {
     private static int counter = 0;
     private int id;
     private String title, description, body, image, journalist;
+    private String url;
     private boolean favourite;
 
-    public NewsItem(String title, String image, String description, String body, String journalist) {
+    public NewsItem(String title, String image, String description, String body, String url, String journalist) {
         this.id = counter++;
         this.title = title;
         this.description = description;
         this.body = body;
         this.image = image;
         this.journalist = journalist;
+        this.url = url;
         this.favourite = false;
     }
 
@@ -50,6 +52,10 @@ class NewsItem {
         return journalist;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
     public boolean isFavourite() {
         return favourite;
     }
@@ -63,6 +69,7 @@ class NewsItem {
                 ", body='" + body + '\'' +
                 ", image='" + image + '\'' +
                 ", journalist='" + journalist + '\'' +
+                ", link='" + url + '\'' +
                 ", favourite=" + favourite +
                 '}';
     }
