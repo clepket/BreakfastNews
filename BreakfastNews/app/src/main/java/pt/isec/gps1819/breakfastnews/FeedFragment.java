@@ -22,6 +22,8 @@ import java.util.List;
  *
  * @author Carlos Pinho
  * @since 2018-11-22
+ * @version v1
+ * @name FeedFragment.java
  */
 public class FeedFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -101,6 +103,8 @@ public class FeedFragment extends Fragment {
 
         newsItemAdapter.notifyDataSetChanged();
     }
+
+    
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
         private int spanCount;
         private int spacing;

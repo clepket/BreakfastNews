@@ -1,7 +1,6 @@
 package pt.isec.gps1819.breakfastnews;
 
 import android.content.Context;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import java.util.List;
 
@@ -20,6 +18,7 @@ import java.util.List;
  * @author Carlos Pinho
  * @version v1
  * @since 2018-11-25
+ * @name NewsItemAdapter.java
  */
 public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.MyViewHolder> {
     private Context mContext;

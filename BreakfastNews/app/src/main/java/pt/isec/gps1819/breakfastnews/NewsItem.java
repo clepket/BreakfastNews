@@ -5,6 +5,8 @@ package pt.isec.gps1819.breakfastnews;
  *
  * @version v1
  * @since 2018-11-25
+ * @author Carlos Pinho
+ * @name NewsItem.java
  */
 class NewsItem {
     private static int counter = 0;
@@ -62,15 +64,14 @@ class NewsItem {
 
     @Override
     public String toString() {
-        return "newsItem{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", body='" + body + '\'' +
-                ", image='" + image + '\'' +
-                ", journalist='" + journalist + '\'' +
-                ", link='" + url + '\'' +
-                ", favourite=" + favourite +
-                '}';
+        return "newsItem{" + "id=" + id
+                + ", title='" + title + '\''
+                + ", description='" + description + '\''
+                + ", body='" + body + '\''
+                + ", image='" + image + '\''
+                + ", journalist='" + journalist + '\''
+                + ", link='" + url + '\''
+                + ", favourite=" + favourite
+                + '}';
     }
 }
