@@ -51,7 +51,7 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.MyView
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
-        NewsItem newsItem = newsList.get(position);
+        final NewsItem newsItem = newsList.get(position);
         holder.newsTitle.setText(newsItem.getTitle());
 
         Glide.with(mContext)
@@ -62,7 +62,7 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.MyView
         holder.newsReadMore.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                /* TODO: Criar "ligação" para o fragmento de ler a noticia */
+                //OpenNewsFragment fragment = OpenNewsFragment.newInstance(newsItem);
 
             }
         });

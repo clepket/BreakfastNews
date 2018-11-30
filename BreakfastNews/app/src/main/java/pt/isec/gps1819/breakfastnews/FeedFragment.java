@@ -23,7 +23,7 @@ import java.util.List;
  * @author Carlos Pinho
  * @since 2018-11-22
  */
-public class        FeedFragment extends Fragment {
+public class FeedFragment extends Fragment {
     private RecyclerView recyclerView;
     private NewsItemAdapter newsItemAdapter;
     private List<NewsItem> newsList;
