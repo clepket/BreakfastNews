@@ -13,7 +13,7 @@ class NewsItem {
     private String url;
     private boolean favourite;
 
-    public NewsItem(String title, String image, String description, String body, String url, String journalist) {
+    public NewsItem(String title, String image, String description, String body, String journalist, String url) {
         this.id = counter++;
         this.title = title;
         this.description = description;

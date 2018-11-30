@@ -1,6 +1,7 @@
 package pt.isec.gps1819.breakfastnews;
 
 import android.content.Context;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -62,8 +63,11 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.MyView
         holder.newsReadMore.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //OpenNewsFragment fragment = OpenNewsFragment.newInstance(newsItem);
-
+                /*OpenNewsFragment openNews = new OpenNewsFragment();
+                FragmentTransaction transaction = openNews.getFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment, openNews ); // give your fragment container id in first parameter
+                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                transaction.commit();*/
             }
         });
     }

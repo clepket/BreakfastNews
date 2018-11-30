@@ -1,8 +1,15 @@
 package pt.isec.gps1819.breakfastnews;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-static class NewsPicker{
+/*static*/ class NewsPicker{
     private List<NewsItem> newsList;
 
     public NewsPicker(){

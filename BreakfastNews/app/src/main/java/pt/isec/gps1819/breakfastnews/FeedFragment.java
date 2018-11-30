@@ -74,7 +74,8 @@ public class FeedFragment extends Fragment {
                         "Pankaj Sekhsaria, especialista em direitos tribais, admitiu que é praticamente impossível recuperar o corpo do norte-americano, acrescentando, ainda, que o melhor é mesmo não tentar chegar perto da ilha. \"Vai criar um conflito com a comunidade local\", disse, citado pela AFP.\n" +
                         "\n" +
                         "Também Anup Kapoor, antropologista da Universidade de Deli, explicou que para entrar em contacto com a tribo vai ser necessário demonstrar que \"estão todos na mesma linha\". \"Pouco se sabe sobre eles. O que sabemos é que foram mortos pelos ingleses e japoneses. Eles odeiam qualquer pessoa que se vista de uniforme. Se virem alguém assim, matam logo\", alertou. \"Deixem-nos estar, a eles e ao ambiente onde estão, em paz, ou eles ficarão mais agressivos.\"",
-                "Carlos Pinho"));
+                "Carlos Pinho",
+                "https://www.google.pt/"));
         newsList.add(new NewsItem(
                 "Homem aos tiros lança o pânico nas Caxinas",
                 "https://static.globalnoticias.pt/jn/image.aspx?brand=JN&type=generate&guid=0e72a904-b96a-4d78-a7af-53df114bed7d&w=744&h=495&t=20181125175040",
@@ -84,7 +85,8 @@ public class FeedFragment extends Fragment {
                         "Entretanto, o homem saiu e andou pela rua a disparar para o ar, obrigando dezenas de pessoas, incluindo crianças, a procurarem refúgio em prédios ou estabelecimentos comerciais.\n" +
                         "\n" +
                         "O homem fugiu de carro, sendo perseguido pela PSP, que ainda efetuou um disparo de intimidação para o ar, embora ele tivesse prosseguido a fuga. Mas acabou por parar, sendo detido. Na sua posse tinha uma pistola do calibre 6.35, com quatro munições no carregador.",
-                "Ricardo Reis"));
+                "Ricardo Reis",
+                "https://www.google.pt/"));
         newsList.add(new NewsItem(
                 "Javier Zanetti: «Era capaz de levantar 500 quilos!»",
                 "https://cdn.record.pt/images/2018-11/img_920x518$2018_11_25_20_25_17_1476525.jpg",
@@ -94,7 +96,8 @@ public class FeedFragment extends Fragment {
                         "\"Jogava sempre duas vezes por semana, mas mesmo assim nunca falhava o meu treino de força à segunda-feira. Mesmo estando cansado, era algo que me fazia sentir melhor no jogo seguinte. Fazia exercícios de peito e também fazia testes para perceber o peso que deveria levantar em cada momento da temporada. Era capaz de fazer 'leg press' com 500 quilos e com uma perna pegava nuns 310! Naturalmente que alternava esse trabalho com exercícios de explosão\", detalhou, lembrando depois o trabalho com José Mourinho no Inter Milão.\n" +
                         "\n" +
                         "\"O Mourinho, por exemplo, gostava muito de trabalhar com bola, com um treino de alta intensidade que envolvia muitas travagens e mudanças de direção. Acredito que no futebol atual tens de ter muito mais do que alguém que te oriente fisicamente. Precisas de uma pessoa que trabalhe noutras áreas, como por exemplo na força. Precisas de ter uma visão mais alargada\", disse o antigo internacional argentino.",
-                "Marta Sá"));
+                "Marta Sá",
+                "https://www.google.pt/"));
 
         newsItemAdapter.notifyDataSetChanged();
     }
