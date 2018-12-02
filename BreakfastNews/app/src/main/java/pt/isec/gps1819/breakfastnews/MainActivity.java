@@ -1,6 +1,8 @@
 package pt.isec.gps1819.breakfastnews;
 
+import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -9,10 +11,22 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.CheckBox;
+import android.widget.TimePicker;
+import android.widget.Toast;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener , TimePickerDialog.OnTimeSetListener {
 
+    String hora = " ";
+    String minuto = " ";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +43,41 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    public void saveTextAsFile(String keywords, String jornalistas) {
+        String fileName = "perfil.txt";
+        String enter = "\n";
+
+        //create file
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), fileName);
+
+
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+            fos.write(keywords.getBytes());
+            fos.write(enter.getBytes());
+            fos.write(enter.getBytes());
+            fos.write(jornalistas.getBytes());
+            CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox);
+            if (checkBox.isChecked()) {
+                fos.write(enter.getBytes());
+                fos.write(enter.getBytes());
+                fos.write(hora.getBytes());
+                fos.write(enter.getBytes());
+                fos.write(minuto.getBytes());
+            }
+            fos.close();
+            Toast.makeText(getApplicationContext(), "Saved!", Toast.LENGTH_SHORT).show();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "File not found!!", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Error saving!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -64,5 +113,15 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        hora = Integer.toString(hourOfDay);
+        minuto = Integer.toString(minute);
+        CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox);
+
+        checkBox.setText("Todos os dias às " + hourOfDay + "h" + minute);
+        checkBox.setChecked(true);
     }
 }
