@@ -2,12 +2,16 @@ package pt.isec.gps1819.breakfastnews;
 
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -15,7 +19,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.io.BufferedWriter;
@@ -29,7 +36,7 @@ import java.io.OutputStreamWriter;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ConfigFragment extends Fragment implements View.OnClickListener {
+public class ConfigFragment extends Fragment implements View.OnClickListener , TimePickerDialog.OnTimeSetListener {
 
 
     public ConfigFragment() {
@@ -38,6 +45,7 @@ public class ConfigFragment extends Fragment implements View.OnClickListener {
 
     EditText et_keywords, et_journalists;
     Button btn_config_guardar;
+    ImageButton image_btn_clock;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,46 +62,14 @@ public class ConfigFragment extends Fragment implements View.OnClickListener {
         et_keywords = (EditText) v.findViewById(R.id.et_keywords);
         et_journalists = (EditText) v.findViewById(R.id.et_journalists);
         btn_config_guardar = (Button) v.findViewById(R.id.btn_config_guardar);
+        image_btn_clock = (ImageButton) v.findViewById(R.id.image_btn_clock);
 
         //button listener
         btn_config_guardar.setOnClickListener(this);
-            /*@Override
-            public void onClick(View v) {
-                String keywords = et_keywords.getText().toString();
-                String jornalistas = et_journalists.getText().toString();
 
-                saveTextAsFile(keywords, jornalistas);
-            }
-        });*/
-        // Inflate the layout for this fragment
+        //image button listener
+        image_btn_clock.setOnClickListener(this);
         return v;
-    }
-
-    private void saveTextAsFile(String keywords, String jornalistas) {
-        String fileName = "perfil.txt";
-        String enter = "\n";
-
-        //create file
-        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), fileName);
-
-
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
-            fos.write(keywords.getBytes());
-            fos.write(enter.getBytes());
-            fos.write(enter.getBytes());
-            fos.write(jornalistas.getBytes());
-            fos.close();
-            Toast.makeText(getContext(), "Saved!", Toast.LENGTH_SHORT).show();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Toast.makeText(getContext(), "File not found!!", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(getContext(), "Error saving!", Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
@@ -111,14 +87,31 @@ public class ConfigFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        String keywords = et_keywords.getText().toString();
-        String jornalistas = et_journalists.getText().toString();
+        switch (v.getId()) {
+            case R.id.btn_config_guardar:
+                String keywords = et_keywords.getText().toString();
+                String jornalistas = et_journalists.getText().toString();
 
-        saveTextAsFile(keywords, jornalistas);
 
-        FeedFragment feedFragment = new FeedFragment();
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment, feedFragment, feedFragment.getTag()).commit();
+                ((MainActivity)getActivity()).saveTextAsFile(keywords, jornalistas);
 
+                FeedFragment feedFragment = new FeedFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.fragment, feedFragment, feedFragment.getTag()).commit();
+                break;
+
+            case R.id.image_btn_clock:
+                //Intent intentLoadNewActivity = new Intent(getActivity(), TimePickerFragment.class);
+                //startActivity(intentLoadNewActivity);
+                DialogFragment timePicker = new TimePickerFragment();
+                timePicker.show(getFragmentManager(), "time picker");
+                break;
+        }
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkBox);
+        checkBox.setText("Todos os dias às " + hourOfDay + "h" + minute);
     }
 }
