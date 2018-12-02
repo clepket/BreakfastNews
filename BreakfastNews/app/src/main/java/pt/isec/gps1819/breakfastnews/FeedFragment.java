@@ -104,7 +104,7 @@ public class FeedFragment extends Fragment {
         newsItemAdapter.notifyDataSetChanged();
     }
 
-    
+
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
         private int spanCount;
         private int spacing;

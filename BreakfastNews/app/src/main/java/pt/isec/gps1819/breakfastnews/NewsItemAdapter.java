@@ -24,7 +24,7 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.MyView
     private Context mContext;
     private List<NewsItem> newsList;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder{ 
         public TextView newsTitle, newsReadMore;
         public ImageView newsImage;
         public CardView cardViewItem;
