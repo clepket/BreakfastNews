@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity
             text = new String(buffer);
         } catch(Exception e) {
             e.printStackTrace();
-            Toast.makeText(getApplicationContext(), "Error reading from file!", Toast.LENGTH_SHORT).show();
         }
 
         return text;
