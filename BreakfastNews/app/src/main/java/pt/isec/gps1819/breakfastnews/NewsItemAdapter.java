@@ -1,15 +1,26 @@
 package pt.isec.gps1819.breakfastnews;
 
+
 import android.content.Context;
+import android.os.Debug;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import java.util.List;
+
+
 
 /**
  * Esta classe tem a função de criar um adaptador
@@ -59,14 +70,23 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.MyView
                 .error(R.mipmap.ic_launcher)
                 .into(holder.newsImage);
 
+
         holder.newsReadMore.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                /*OpenNewsFragment openNews = new OpenNewsFragment();
-                FragmentTransaction transaction = openNews.getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment, openNews ); // give your fragment container id in first parameter
-                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-                transaction.commit();*/
+
+                Fragment fragment = OpenNewsFragment.newInstance(newsItem);
+
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.drawer_layout, fragment).addToBackStack(null).commit();
+
+//                switch(view.getId()) {
+//                    case R.id.newsReadMore:
+//
+//                        FragmentTransaction fragmentTransaction = myActivity.getSupportFragmentManager().beginTransaction();
+//                        myActivity.getSupportFragmentManager().beginTransaction().add(R.id.openNewsFrame, fragment);
+//                }
             }
         });
     }

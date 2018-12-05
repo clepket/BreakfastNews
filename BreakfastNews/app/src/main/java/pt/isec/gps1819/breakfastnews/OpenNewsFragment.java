@@ -3,7 +3,6 @@ package pt.isec.gps1819.breakfastnews;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 /**
  * A simple {@link Fragment} subclass.
  */
+
 public class OpenNewsFragment extends Fragment {
 
     private String title;
@@ -25,9 +25,11 @@ public class OpenNewsFragment extends Fragment {
     //private TextView mImageTextView;
     private TextView mSubtitleTextView;
     private TextView mBodyTextView;
+
+
     //private TextView mJournalistTextView;
 
-    public OpenNewsFragment newInstance (NewsItem singleNews) {
+    public static OpenNewsFragment newInstance(NewsItem singleNews) {
         Bundle bundle = new Bundle();
         bundle.putString("title", singleNews.getTitle());
         bundle.putString("image", singleNews.getImage());

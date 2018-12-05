@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/openNewsFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/viewBg"
     tools:context=".OpenNewsFragment">
 
+    <ScrollView android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#ffffff">
 
     <RelativeLayout
+        android:id="@+id/openNewsRelativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -16,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/titleTextView"
@@ -46,8 +51,7 @@
             android:layout_height="150dp"
             android:layout_below="@+id/titleBar"
             android:layout_alignStart="@+id/titleBar"
-            android:src="@android:drawable/ic_menu_report_image"
-            />
+            android:src="@android:drawable/ic_menu_report_image" />
 
         <TextView
             android:id="@+id/subtitleTextView"
@@ -56,9 +60,8 @@
             android:layout_below="@+id/imageImageView"
             android:layout_alignParentStart="true"
             android:text="A polícia indiana está a tentar resgatar o corpo do jovem norte-americano, que terá sido assassinado por membros de uma tribo, na passada semana. Os Sentinela não estão a facilitar a aproximação."
-            android:textSize="13sp"
             android:textAlignment="center"
-            />
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/bodyTextView"
@@ -72,4 +75,5 @@
         Questionada sobre se estava a deixar uma indireta aos deputados do PCP e Bloco de Esquerda que propuseram a integração das três vacinas no PNV, bem como a quem os aconselhou nesse sentido, Graça Freitas 'fintou' a pergunta, garantindo não saber quem são as pessoas em causa, nem conhecer ainda a versão final do que foi aprovado no Parlamento.
         Só falo por mim. A Comissão Técnica de Vacinação não é um grupo de pessoas à toa, as outras não sei, insistiu." />
     </RelativeLayout>
+    </ScrollView>
 </FrameLayout>
