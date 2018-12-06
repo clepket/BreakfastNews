@@ -1,16 +1,18 @@
 package pt.isec.gps1819.breakfastnews;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,7 +20,9 @@ import com.bumptech.glide.Glide;
 
 public class OpenNewsFragment extends Fragment {
 
+    private static Bundle bundle = new Bundle();
     private String title;
+    private boolean favourite;
     private String date;
     private String image;
     private String subtitle;
@@ -26,20 +30,25 @@ public class OpenNewsFragment extends Fragment {
     private String journalist;
 
     private TextView mTitleTextView;
+    private ImageView mStarImageView;
     private TextView mDateTextView;
-    private ImageView mImageTextView;
     private TextView mSubtitleTextView;
     private TextView mBodyTextView;
     private TextView mJournalistTextView;
 
+    /** This application's preferences */
+    private static SharedPreferences settings;
+    /** This application's settings editor*/
+    private static SharedPreferences.Editor editor;
+
     public static OpenNewsFragment newInstance(NewsItem singleNews) {
-        Bundle bundle = new Bundle();
         bundle.putString("title", singleNews.getTitle());
         bundle.putString("date", singleNews.getDate());
         bundle.putString("image", singleNews.getImage());
         bundle.putString("subtitle", singleNews.getDescription());
         bundle.putString("body", singleNews.getBody());
         bundle.putString("journalist", singleNews.getJournalist());
+        bundle.putBoolean("favourite", singleNews.isFavourite());
 
         OpenNewsFragment fragment = new OpenNewsFragment();
         fragment.setArguments(bundle);
@@ -55,9 +64,9 @@ public class OpenNewsFragment extends Fragment {
             subtitle = bundle.getString("subtitle");
             body = bundle.getString("body");
             journalist = bundle.getString("journalist");
+            favourite = bundle.getBoolean("favourite");
         }
     }
-
 
 
     @Override
@@ -83,7 +92,58 @@ public class OpenNewsFragment extends Fragment {
                 .error(R.mipmap.ic_launcher)
                 .into((ImageView) view.findViewById(R.id.imageImageView));
 
+        if(favourite) {
+            mStarImageView =(ImageView) view.findViewById(R.id.starImageView);
+            mStarImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_yellow_24dp, null));
+        }
+        else if(!favourite) {
+            mStarImageView =(ImageView) view.findViewById(R.id.starImageView);
+            mStarImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_border_black_24dp, null));
+        }
+
+        mStarImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!bundle.getBoolean("favourite")) {
+                    bundle.putBoolean("favourite", true);
+
+                    Fragment frg = getFragmentManager().findFragmentById(R.id.drawer_layout);
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.detach(frg);
+                    ft.attach(frg);
+                    ft.commit();
+                    saveNews();
+
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                    String savedBeaconsAsString = preferences.getString("news", null);
+                    Log.v("savedBeaconsAsString", savedBeaconsAsString);
+
+                }
+                else if(bundle.getBoolean("favourite")) {
+                    bundle.putBoolean("favourite", false);
+
+                    Fragment frg = getFragmentManager().findFragmentById(R.id.drawer_layout);
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.detach(frg);
+                    ft.attach(frg);
+                    ft.commit();
+                }
+
+            }
+        });
+
         return view;
+    }
+
+    void saveNews() {
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(title, bundle.toString());
+        editor.apply();
+
     }
 
 }

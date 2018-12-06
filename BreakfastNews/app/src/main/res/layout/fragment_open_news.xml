@@ -41,7 +41,9 @@
                     android:layout_width="54dp"
                     android:layout_height="53dp"
                     android:layout_gravity="center"
-                    android:src="@android:drawable/btn_star_big_on" />
+                    android:src="@android:drawable/btn_star_big_on"
+                    android:clickable="true"
+                    />
 
             </LinearLayout>
 
