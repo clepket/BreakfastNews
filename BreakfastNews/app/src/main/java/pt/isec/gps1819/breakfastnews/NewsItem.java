@@ -65,6 +65,10 @@ public class NewsItem {
         return favourite;
     }
 
+    public String getDate() {
+        return date;
+    }
+
     @Override
     public String toString() {
         return "newsItem{" +

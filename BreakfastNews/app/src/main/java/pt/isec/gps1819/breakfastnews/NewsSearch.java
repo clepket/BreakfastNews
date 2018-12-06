@@ -1,3 +1,11 @@
+package pt.isec.gps1819.breakfastnews;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import pt.isec.gps1819.breakfastnews.NewsItem;
+import pt.isec.gps1819.breakfastnews.NewsPicker;
+
 public class NewsSearch {
     private NewsPicker newsPicker;
     private List<NewsItem> newsListPicked;
