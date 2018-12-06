@@ -77,7 +77,8 @@ public class FeedFragment extends Fragment {
                         "\n" +
                         "Também Anup Kapoor, antropologista da Universidade de Deli, explicou que para entrar em contacto com a tribo vai ser necessário demonstrar que \"estão todos na mesma linha\". \"Pouco se sabe sobre eles. O que sabemos é que foram mortos pelos ingleses e japoneses. Eles odeiam qualquer pessoa que se vista de uniforme. Se virem alguém assim, matam logo\", alertou. \"Deixem-nos estar, a eles e ao ambiente onde estão, em paz, ou eles ficarão mais agressivos.\"",
                 "Carlos Pinho",
-                "https://www.google.pt/"));
+                "https://www.google.pt/",
+                "18/18/18"));
         newsList.add(new NewsItem(
                 "Homem aos tiros lança o pânico nas Caxinas",
                 "https://static.globalnoticias.pt/jn/image.aspx?brand=JN&type=generate&guid=0e72a904-b96a-4d78-a7af-53df114bed7d&w=744&h=495&t=20181125175040",
@@ -88,7 +89,8 @@ public class FeedFragment extends Fragment {
                         "\n" +
                         "O homem fugiu de carro, sendo perseguido pela PSP, que ainda efetuou um disparo de intimidação para o ar, embora ele tivesse prosseguido a fuga. Mas acabou por parar, sendo detido. Na sua posse tinha uma pistola do calibre 6.35, com quatro munições no carregador.",
                 "Ricardo Reis",
-                "https://www.google.pt/"));
+                "https://www.google.pt/",
+                "18/18/18"));
         newsList.add(new NewsItem(
                 "Javier Zanetti: «Era capaz de levantar 500 quilos!»",
                 "https://cdn.record.pt/images/2018-11/img_920x518$2018_11_25_20_25_17_1476525.jpg",
@@ -99,7 +101,8 @@ public class FeedFragment extends Fragment {
                         "\n" +
                         "\"O Mourinho, por exemplo, gostava muito de trabalhar com bola, com um treino de alta intensidade que envolvia muitas travagens e mudanças de direção. Acredito que no futebol atual tens de ter muito mais do que alguém que te oriente fisicamente. Precisas de uma pessoa que trabalhe noutras áreas, como por exemplo na força. Precisas de ter uma visão mais alargada\", disse o antigo internacional argentino.",
                 "Marta Sá",
-                "https://www.google.pt/"));
+                "https://www.google.pt/",
+                "18/18/18"));
 
         newsItemAdapter.notifyDataSetChanged();
     }

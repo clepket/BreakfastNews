@@ -80,13 +80,6 @@ public class NewsItemAdapter extends RecyclerView.Adapter<NewsItemAdapter.MyView
                 AppCompatActivity activity = (AppCompatActivity) view.getContext();
 
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.drawer_layout, fragment).addToBackStack(null).commit();
-
-//                switch(view.getId()) {
-//                    case R.id.newsReadMore:
-//
-//                        FragmentTransaction fragmentTransaction = myActivity.getSupportFragmentManager().beginTransaction();
-//                        myActivity.getSupportFragmentManager().beginTransaction().add(R.id.openNewsFrame, fragment);
-//                }
             }
         });
     }

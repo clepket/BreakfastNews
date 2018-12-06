@@ -7,73 +7,96 @@
     android:background="@color/viewBg"
     tools:context=".OpenNewsFragment">
 
-    <ScrollView android:layout_width="fill_parent"
+    <ScrollView
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="#ffffff">
 
-    <RelativeLayout
-        android:id="@+id/openNewsRelativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/openNewsRelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/titleBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/titleBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/titleTextView"
+                    android:layout_width="315dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="A perigosa missão de resgatar o corpo do missionário morto pelos Sentinela "
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/starImageView"
+                    android:layout_width="54dp"
+                    android:layout_height="53dp"
+                    android:layout_gravity="center"
+                    android:src="@android:drawable/btn_star_big_on" />
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/titleTextView"
-                android:layout_width="315dp"
+                android:id="@+id/dateTextView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="A perigosa missão de resgatar o corpo do missionário morto pelos Sentinela "
                 android:textAlignment="center"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_below="@id/titleBar"
+                android:text="TextView" />
 
             <ImageView
-                android:id="@+id/starImageView"
-                android:layout_width="53dp"
-                android:layout_height="53dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_gravity="center"
-                android:src="@android:drawable/btn_star_big_on" />
+                android:id="@+id/imageImageView"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_below="@+id/dateTextView"
+                android:layout_alignStart="@+id/titleBar"
+                android:layout_marginStart="-2dp"
+                android:layout_marginTop="2dp"
+                android:src="@android:drawable/ic_menu_report_image" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/subtitleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imageImageView"
+                android:layout_alignParentStart="true"
+                android:text="A polícia indiana está a tentar resgatar o corpo do jovem norte-americano, que terá sido assassinado por membros de uma tribo, na passada semana. Os Sentinela não estão a facilitar a aproximação."
+                android:textAlignment="center"
+                android:textSize="13sp" />
 
-        <ImageView
-            android:id="@+id/imageImageView"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_below="@+id/titleBar"
-            android:layout_alignStart="@+id/titleBar"
-            android:src="@android:drawable/ic_menu_report_image" />
+            <TextView
+                android:id="@+id/bodyTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/subtitleTextView"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="20dp"
+                android:text="A diretora-geral de Saúde (DGS), Graça Freitas, garantiu ao DN que neste momento a vacina contra o rotavírus não reúne critério técnico que a torne elegível para entrar no Plano Nacional de Vacinação (PNV), praticamente descartando a hipótese de que tal suceda. Pelo menos por decisão da DGS.
+                Quanto às outras duas vacinas aprovadas pelo parlamento para integrarem o PNV - Vírus do Papiloma Humano (HPV) para rapazes e meningite B - , explicou que ambas estão a ser objeto de análise pela Comissão Técnica de Vacinação, garantindo não saber qual será a decisão final do grupo de peritos.
+                A Comissão Técnica de Vacinação não é um grupo de pessoas à toa, que aparece aqui para dar umas opiniões sobre vacinas, defendeu. São técnicos nomeados em Diário da República, imputáveis pelas decisões que tomam, com declaração de inexistência de incompatibilidades, frisou.
+                Questionada sobre se estava a deixar uma indireta aos deputados do PCP e Bloco de Esquerda que propuseram a integração das três vacinas no PNV, bem como a quem os aconselhou nesse sentido, Graça Freitas 'fintou' a pergunta, garantindo não saber quem são as pessoas em causa, nem conhecer ainda a versão final do que foi aprovado no Parlamento.
+                Só falo por mim. A Comissão Técnica de Vacinação não é um grupo de pessoas à toa, as outras não sei, insistiu."
+                android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/subtitleTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/imageImageView"
-            android:layout_alignParentStart="true"
-            android:text="A polícia indiana está a tentar resgatar o corpo do jovem norte-americano, que terá sido assassinado por membros de uma tribo, na passada semana. Os Sentinela não estão a facilitar a aproximação."
-            android:textAlignment="center"
-            android:textSize="13sp" />
+            <TextView
+                android:id="@+id/journalistTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bodyTextView"
+                android:layout_marginTop="5sp"
+                android:text="Gracinda Rodrigues"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/bodyTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/subtitleTextView"
-            android:layout_alignParentStart="true"
-            android:text="A diretora-geral de Saúde (DGS), Graça Freitas, garantiu ao DN que neste momento a vacina contra o rotavírus não reúne critério técnico que a torne elegível para entrar no Plano Nacional de Vacinação (PNV), praticamente descartando a hipótese de que tal suceda. Pelo menos por decisão da DGS.
-        Quanto às outras duas vacinas aprovadas pelo parlamento para integrarem o PNV - Vírus do Papiloma Humano (HPV) para rapazes e meningite B - , explicou que ambas estão a ser objeto de análise pela Comissão Técnica de Vacinação, garantindo não saber qual será a decisão final do grupo de peritos.
-        A Comissão Técnica de Vacinação não é um grupo de pessoas à toa, que aparece aqui para dar umas opiniões sobre vacinas, defendeu. São técnicos nomeados em Diário da República, imputáveis pelas decisões que tomam, com declaração de inexistência de incompatibilidades, frisou.
-        Questionada sobre se estava a deixar uma indireta aos deputados do PCP e Bloco de Esquerda que propuseram a integração das três vacinas no PNV, bem como a quem os aconselhou nesse sentido, Graça Freitas 'fintou' a pergunta, garantindo não saber quem são as pessoas em causa, nem conhecer ainda a versão final do que foi aprovado no Parlamento.
-        Só falo por mim. A Comissão Técnica de Vacinação não é um grupo de pessoas à toa, as outras não sei, insistiu." />
-    </RelativeLayout>
+        </RelativeLayout>
     </ScrollView>
 </FrameLayout>

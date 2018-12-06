@@ -11,11 +11,11 @@ package pt.isec.gps1819.breakfastnews;
 class NewsItem {
     private static int counter = 0;
     private int id;
-    private String title, description, body, image, journalist;
+    private String title, description, date, body, image, journalist;
     private String url;
     private boolean favourite;
 
-    public NewsItem(String title, String image, String description, String body, String journalist, String url) {
+    public NewsItem(String title, String image, String description, String body, String journalist, String url, String date) {
         this.id = counter++;
         this.title = title;
         this.description = description;
@@ -24,6 +24,7 @@ class NewsItem {
         this.journalist = journalist;
         this.url = url;
         this.favourite = false;
+        this.date = date;
     }
 
     public void setFavourite(boolean favourite) {
@@ -62,6 +63,10 @@ class NewsItem {
         return favourite;
     }
 
+    public String getDate() {
+        return date;
+    }
+
     @Override
     public String toString() {
         return "newsItem{" + "id=" + id
@@ -72,6 +77,7 @@ class NewsItem {
                 + ", journalist='" + journalist + '\''
                 + ", link='" + url + '\''
                 + ", favourite=" + favourite
+                + ", date=" + date
                 + '}';
     }
 }
