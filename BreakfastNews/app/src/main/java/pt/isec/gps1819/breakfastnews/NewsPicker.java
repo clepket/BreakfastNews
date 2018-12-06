@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/*static*/ class NewsPicker{
+public static class NewsPicker{
     private List<NewsItem> newsList;
 
     public NewsPicker(){
@@ -25,14 +25,15 @@ import java.util.List;
             url = new URL(link);
             URLConnection yc = url.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(
-                    yc.getInputStream()));
+                    yc.getInputStream(), StandardCharsets.UTF_8));
             String inputLine;
-            while (((inputLine = in.readLine()) != null)  ) {
+            while (((inputLine = in.readLine()) != null)  && cont<nNews) {
                 if((inputLine.contains("<item>") && inputLine.contains("</item>")) && !merge){
-                    NewsItem news = getNew(inputLine);
+                    NewsItem news = getNews(inputLine);
                     if(news != null){
                         System.out.println(news.toString());
                         this.newsList.add(news);
+                        cont++;
                     }
                 }else{
                     if(!merge) {
@@ -41,10 +42,11 @@ import java.util.List;
                     }else{
                         newsText += inputLine;
 
-                        NewsItem news = getNew(newsText);
+                        NewsItem news = getNews(newsText);
                         if(news != null){
                             System.out.println(news.toString());
                             this.newsList.add(news);
+                            cont++;
                         }
                         merge = false;
                     }
@@ -75,24 +77,19 @@ import java.util.List;
         return value.substring(adjustedPosA, posB);
     }
 
-    private NewsItem getNew(String infoNew){
+
+    private NewsItem getNews(String infoNew){
 
         URL url = null;
-        String title = between(infoNew, "<title><![CDATA[", "]]></title>");
+        String originalLink = between(infoNew, "<feedburner:origLink>", "</feedburner:origLink>");
+        NewsItem news = null;
 
-        if(!title.isEmpty()) {
-            String description = between(infoNew, "<description>", "&lt");
-            String originalLink = between(infoNew, "<feedburner:origLink>", "</feedburner:origLink>");
-                /*System.out.println("\nFrase: " + infoNew + "\n");
-                System.out.println("\nTitulo: " + title + "\n");
-                System.out.println("Descricao: " + description + "\n");
-                System.out.println("Link: " + originalLink + "\n");*/
-
+        if(!originalLink.isEmpty()) {
             try {
                 url = new URL(originalLink);
                 URLConnection yc = url.openConnection();
                 BufferedReader in = new BufferedReader(new InputStreamReader(
-                        yc.getInputStream()));
+                        yc.getInputStream(), StandardCharsets.UTF_8));
                 String inputLine;
                 String newsInfo = null;
                 boolean merge=false;
@@ -110,32 +107,67 @@ import java.util.List;
                     }
                 }
                 String info = between(newsInfo, "<article", "</article>");
-                //System.out.println(info);
-                getNewsBody(info);
+                news = getNewsInfo(info, originalLink);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            //NewsItem news = new SelectedNews(title, description, originalLink);
-            //return news;
         }
-        return null;
+        return news;
     }
 
-    private String getNewsBody(String article){
+    private NewsItem getNewsInfo(String article, String originalLink){
 
-        List<String> split = Arrays.asList(article.split("(?=<p>)"));
+        int cont=0;
 
-        int cont = 0;
-        String paragrafo = null;
+        List<String> split = Arrays.asList(article.split("(?=<)"));
+        String pesquisa = split.get(cont);
 
-        while(cont<split.size()){
-            paragrafo = between(split.get(cont).toString(), "<p>", "</p>");
-            System.out.println("Split: " +split.get(cont).toString());
-            System.out.println("Paragrafo: " + paragrafo);
+        String title = null;
+        String description = null;
+        boolean finishDescription = false;
+        String img = null;
+        boolean flagImg = false;
+        String direitosImg = null;
+        boolean flagDireitosImg = false;
+        String body = new String("");
+        boolean finishBody = false;
+        String date = null;
+
+
+        do{
+            if(pesquisa.contains("<img") && !flagImg && !finishBody){ //PARA BUSCAR A IMAGEM
+                img = between(pesquisa, " src=", "alt");
+                flagImg = true;
+            }else if(pesquisa.contains("<p")  && flagImg && !flagDireitosImg && !finishBody) { //PARA BUSCAR OS DIREITOS DE AUTOR DA IMAGEM
+                direitosImg = pesquisa + "<";
+                direitosImg = between(direitosImg, ">", "<");
+                flagDireitosImg = true;
+            }else if(pesquisa.contains("<p>") && !finishBody) {//PARA BUSCAR O CORPO DA NOTICIA
+                body += pesquisa+"</p>";
+                if (!split.get(cont + 2).contains("</p>") && !split.get(cont + 1).contains("aside")) {
+                    finishBody = true;
+                }
+            }else if(pesquisa.contains("description")) {//PARA BUSCAR A DESCRIÇÃO DA NOTICIA
+                finishDescription = true;
+            }else if(pesquisa.contains("<p")  && finishDescription) {//PARA OBTER A DESCRIÇÃO DA NOTICIA
+                description = pesquisa + "<";
+                description = between(description, ">", "<");
+                finishDescription = false;
+            }else if(pesquisa.contains("<h1")){//PARA BUSCAR O TITULO DA NOTICIA
+                title = pesquisa + "<";
+                title = between(title, ">", "<");
+            }else if(pesquisa.contains("datetime")){//PARA BUSCAR A DATA DA NOTICIA
+                date = pesquisa + "<";
+                date = between(date, "datetime=", "content");
+                date = date.substring(1, (date.length()-2));
+            }
+
+            pesquisa = split.get(cont);
             cont++;
-        }
-        System.out.println("\n");
-        return null;
+
+        }while(cont<split.size());
+        NewsItem news = new NewsItem(title, img, direitosImg, description, body, originalLink, null, date);
+
+        return news;
     }
 }
