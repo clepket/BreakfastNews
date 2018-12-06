@@ -22,6 +22,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener , TimePickerDialog.OnTimeSetListener {
@@ -46,6 +48,20 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragment, new FeedFragment()).commit();
+    }
+
+    public List<String> devolveKeywords(String text) {
+        String[] linha = text.split("\n");
+        String keywords[] = linha[0].split(",");
+
+        return Arrays.asList(keywords);
+    }
+
+    public List<String> devolveJornalistas(String text) {
+        String[] linha = text.split("\n");
+        String jornalistas[] = linha[1].split(",");
+
+        return Arrays.asList(jornalistas);
     }
 
     public String readFile(String file) {
