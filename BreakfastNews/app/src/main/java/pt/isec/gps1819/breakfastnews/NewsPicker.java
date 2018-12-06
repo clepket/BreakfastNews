@@ -1,5 +1,7 @@
 package pt.isec.gps1819.breakfastnews;
 
+import android.os.AsyncTask;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,56 +12,68 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class NewsPicker{
+public class NewsPicker extends AsyncTask<String, Void, List<NewsItem>> {
     private List<NewsItem> newsList;
 
     public NewsPicker(){
         newsList = new ArrayList<>();
     }
 
-    public List<NewsItem> findNews(String link, int nNews){
-        URL url = null;
-        String newsText = null;
-        boolean merge=false;
-        int cont=0;
-        try {
-            url = new URL(link);
-            URLConnection yc = url.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(
-                    yc.getInputStream(), StandardCharsets.UTF_8));
-            String inputLine;
-            while (((inputLine = in.readLine()) != null)  && cont<nNews) {
-                if((inputLine.contains("<item>") && inputLine.contains("</item>")) && !merge){
-                    NewsItem news = getNews(inputLine);
-                    if(news != null){
-                        System.out.println(news.toString());
-                        this.newsList.add(news);
-                        cont++;
-                    }
-                }else{
-                    if(!merge) {
-                        newsText = inputLine;
-                        merge = true;
-                    }else{
-                        newsText += inputLine;
+    @Override
+    protected List<NewsItem> doInBackground(String... strings) {
 
-                        NewsItem news = getNews(newsText);
-                        if(news != null){
+        if(strings.length<=2) {
+            String link = strings[0];
+            int nNews = Integer.parseInt(strings[1]);
+
+            URL url = null;
+            String newsText = null;
+            boolean merge = false;
+            int cont = 0;
+            try {
+                url = new URL(link);
+                URLConnection yc = url.openConnection();
+                BufferedReader in = new BufferedReader(new InputStreamReader(
+                        yc.getInputStream(), StandardCharsets.UTF_8));
+                String inputLine;
+                while (((inputLine = in.readLine()) != null) && cont < nNews) {
+                    if ((inputLine.contains("<item>") && inputLine.contains("</item>")) && !merge) {
+                        NewsItem news = getNews(inputLine);
+                        if (news != null) {
                             System.out.println(news.toString());
                             this.newsList.add(news);
                             cont++;
                         }
-                        merge = false;
+                    } else {
+                        if (!merge) {
+                            newsText = inputLine;
+                            merge = true;
+                        } else {
+                            newsText += inputLine;
+
+                            NewsItem news = getNews(newsText);
+                            if (news != null) {
+                                System.out.println(news.toString());
+                                this.newsList.add(news);
+                                cont++;
+                            }
+                            merge = false;
+                        }
                     }
                 }
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        return this.newsList;
+            return this.newsList;
+        }
+        return null;
     }
+
+    //public List<NewsItem> findNews(String link, int nNews){
+
+    //}
 
     private static String between(String value, String a, String b) {
         // Return a substring between the two strings.

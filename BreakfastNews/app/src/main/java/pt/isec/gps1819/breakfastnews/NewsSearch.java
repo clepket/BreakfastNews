@@ -22,7 +22,8 @@ public class NewsSearch {
 
         boolean approved = false;
         newsPicker = new NewsPicker();
-        newsListPicked = newsPicker.findNews("http://feeds.ojogo.pt/OJ-Ultimas", maxNews);
+        newsPicker.execute("http://feeds.ojogo.pt/OJ-Ultimas", ""+maxNews);
+        newsListPicked = newsPicker.doInBackground();
 
         for(NewsItem news: newsListPicked){
             if(keywords != null) {
