@@ -108,7 +108,6 @@ public class ConfigFragment extends Fragment implements View.OnClickListener , T
                 String keywords = et_keywords.getText().toString();
                 String jornalistas = et_journalists.getText().toString();
 
-
                 ((MainActivity)getActivity()).saveTextAsFile("/data/user/0/pt.isec.gps1819.breakfastnews/files/perfil.txt", keywords, jornalistas);
 
                 FeedFragment feedFragment = new FeedFragment();

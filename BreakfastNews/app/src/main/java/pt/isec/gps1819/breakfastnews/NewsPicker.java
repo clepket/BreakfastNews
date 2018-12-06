@@ -70,7 +70,6 @@ public class NewsPicker extends AsyncTask<String, Void, List<NewsItem>> {
         }
         return null;
     }
-
     //public List<NewsItem> findNews(String link, int nNews){
 
     //}

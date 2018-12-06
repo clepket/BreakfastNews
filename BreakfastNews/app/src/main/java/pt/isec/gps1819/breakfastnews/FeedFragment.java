@@ -56,6 +56,14 @@ public class FeedFragment extends Fragment {
         //NewsSearch newsSearch = new NewsSearch(5);
         List<String> keywords = new ArrayList<String>();
         keywords.add("Sete");
+        List<String> keyword;
+        List<String> jornalistas;
+
+
+        String buffer = ((MainActivity)getActivity()).readFile("perfil.txt");
+
+        keyword = ((MainActivity)getActivity()).devolveKeywords(buffer);
+        jornalistas = ((MainActivity)getActivity()).devolveJornalistas(buffer);
 
         //newsList = newsSearch.findNews(keywords, null);
         /*add(new NewsItem(
