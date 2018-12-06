@@ -8,19 +8,21 @@ package pt.isec.gps1819.breakfastnews;
  * @author Carlos Pinho
  * @name NewsItem.java
  */
-class NewsItem {
+public class NewsItem {
     private static int counter = 0;
     private int id;
-    private String title, description, date, body, image, journalist;
-    private String url;
+    private String title, description, body, image, journalist;
+    private String url, imageRights;
     private boolean favourite;
+    private String date;
 
-    public NewsItem(String title, String image, String description, String body, String journalist, String url, String date) {
+    public NewsItem(String title, String image, String imageRights, String description, String body, String url, String journalist, String date){
         this.id = counter++;
         this.title = title;
         this.description = description;
         this.body = body;
         this.image = image;
+        this.imageRights = imageRights;
         this.journalist = journalist;
         this.url = url;
         this.favourite = false;
@@ -63,21 +65,19 @@ class NewsItem {
         return favourite;
     }
 
-    public String getDate() {
-        return date;
-    }
-
     @Override
     public String toString() {
-        return "newsItem{" + "id=" + id
-                + ", title='" + title + '\''
-                + ", description='" + description + '\''
-                + ", body='" + body + '\''
-                + ", image='" + image + '\''
-                + ", journalist='" + journalist + '\''
-                + ", link='" + url + '\''
-                + ", favourite=" + favourite
-                + ", date=" + date
-                + '}';
+        return "newsItem{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", body='" + body + '\'' +
+                ", image='" + image + '\'' +
+                ", imageRights='" + imageRights + '\'' +
+                ", journalist='" + journalist + '\'' +
+                ", link='" + url + '\'' +
+                ", favourite='" + favourite + '\'' +
+                ", date='" + date + '\'' +
+                '}';
     }
 }
