@@ -1,8 +1,10 @@
 package pt.isec.gps1819.breakfastnews;
 
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -95,6 +100,17 @@ public class OpenNewsFragment extends Fragment {
         if(favourite) {
             mStarImageView =(ImageView) view.findViewById(R.id.starImageView);
             mStarImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_yellow_24dp, null));
+
+            FileOutputStream outputStream;
+
+            try {
+                outputStream = getContext().openFileOutput("favourites", Context.MODE_PRIVATE);
+                outputStream.write(bundle.toString().getBytes());
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
         else if(!favourite) {
             mStarImageView =(ImageView) view.findViewById(R.id.starImageView);
@@ -113,11 +129,11 @@ public class OpenNewsFragment extends Fragment {
                     ft.detach(frg);
                     ft.attach(frg);
                     ft.commit();
-                    saveNews();
-
-                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-                    String savedBeaconsAsString = preferences.getString("news", null);
-                    Log.v("savedBeaconsAsString", savedBeaconsAsString);
+//                    //saveNews();
+//
+//                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+//                    String savedBeaconsAsString = preferences.getString("news", null);
+//                    Log.v("savedBeaconsAsString", savedBeaconsAsString);
 
                 }
                 else if(bundle.getBoolean("favourite")) {
@@ -134,16 +150,6 @@ public class OpenNewsFragment extends Fragment {
         });
 
         return view;
-    }
-
-    void saveNews() {
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(title, bundle.toString());
-        editor.apply();
-
     }
 
 }
