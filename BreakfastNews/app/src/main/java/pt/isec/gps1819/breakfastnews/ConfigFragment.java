@@ -52,32 +52,17 @@ public class ConfigFragment extends Fragment implements View.OnClickListener , T
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_config, container, false);
-        String buffer = null;
-        String[] linhas = null;
 
         //Permissao para escrever em external storage
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
         }
 
-        buffer = ((MainActivity)getActivity()).readFile("perfil.txt");
-
-        linhas = buffer.split("\n");
-
         //variáveis para guardar perfil no ficheiro
         et_keywords = (EditText) v.findViewById(R.id.et_keywords);
         et_journalists = (EditText) v.findViewById(R.id.et_journalists);
         btn_config_guardar = (Button) v.findViewById(R.id.btn_config_guardar);
         image_btn_clock = (ImageButton) v.findViewById(R.id.image_btn_clock);
-
-        et_keywords.setText(linhas[0]);
-        et_journalists.setText(linhas[1]);
-        if(linhas.length > 2) {
-            CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox);
-
-            checkBox.setText("Todos os dias às " + linhas[2] + "h" + linhas[3]);
-            checkBox.setChecked(true);
-        }
 
         //button listener
         btn_config_guardar.setOnClickListener(this);
@@ -108,7 +93,7 @@ public class ConfigFragment extends Fragment implements View.OnClickListener , T
                 String jornalistas = et_journalists.getText().toString();
 
 
-                ((MainActivity)getActivity()).saveTextAsFile("/data/user/0/pt.isec.gps1819.breakfastnews/files/perfil.txt", keywords, jornalistas);
+                ((MainActivity)getActivity()).saveTextAsFile(keywords, jornalistas);
 
                 FeedFragment feedFragment = new FeedFragment();
                 FragmentManager fragmentManager = getFragmentManager();

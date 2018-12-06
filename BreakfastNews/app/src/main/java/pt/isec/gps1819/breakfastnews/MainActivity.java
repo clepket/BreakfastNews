@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -48,29 +47,12 @@ public class MainActivity extends AppCompatActivity
         fragmentManager.beginTransaction().replace(R.id.fragment, new FeedFragment()).commit();
     }
 
-    public String readFile(String file) {
-        String text = null;
-
-        try {
-            FileInputStream fis = openFileInput(file);
-            int size = fis.available();
-            byte[] buffer = new byte[size];
-            fis.read(buffer);
-            fis.close();
-            text = new String(buffer);
-        } catch(Exception e) {
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(), "Error reading from file!", Toast.LENGTH_SHORT).show();
-        }
-
-        return text;
-    }
-
-    public void saveTextAsFile(String fileName, String keywords, String jornalistas) {
+    public void saveTextAsFile(String keywords, String jornalistas) {
+        String fileName = "perfil.txt";
         String enter = "\n";
 
         //create file
-        File file = new File(fileName);
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), fileName);
 
 
         try {
@@ -78,9 +60,11 @@ public class MainActivity extends AppCompatActivity
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
             fos.write(keywords.getBytes());
             fos.write(enter.getBytes());
+            fos.write(enter.getBytes());
             fos.write(jornalistas.getBytes());
             CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox);
             if (checkBox.isChecked()) {
+                fos.write(enter.getBytes());
                 fos.write(enter.getBytes());
                 fos.write(hora.getBytes());
                 fos.write(enter.getBytes());
