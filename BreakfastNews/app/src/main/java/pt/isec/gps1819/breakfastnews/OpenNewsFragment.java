@@ -68,7 +68,12 @@ public class OpenNewsFragment extends Fragment {
             image = bundle.getString("image");
             subtitle = bundle.getString("subtitle");
             body = bundle.getString("body");
-            journalist = bundle.getString("journalist");
+
+            if(bundle.getString("journalist")== null)
+                journalist = "";
+            else
+                journalist = bundle.getString("journalist");
+
             favourite = bundle.getBoolean("favourite");
         }
     }

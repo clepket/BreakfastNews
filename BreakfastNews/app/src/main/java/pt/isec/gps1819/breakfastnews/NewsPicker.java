@@ -13,16 +13,18 @@ import java.util.Arrays;
 import java.util.List;
 
 public class NewsPicker extends AsyncTask<String, Void, List<NewsItem>> {
+    private NewsSearch newsSearch;
     private List<NewsItem> newsList;
+    private String url = null;
 
-    public NewsPicker(){
+    public NewsPicker(NewsSearch newsSearch){
+        this.newsSearch = newsSearch;
         newsList = new ArrayList<>();
     }
 
     @Override
     protected List<NewsItem> doInBackground(String... strings) {
 
-        if(strings.length<=2) {
             String link = strings[0];
             int nNews = Integer.parseInt(strings[1]);
 
@@ -32,9 +34,9 @@ public class NewsPicker extends AsyncTask<String, Void, List<NewsItem>> {
             int cont = 0;
             try {
                 url = new URL(link);
-                URLConnection yc = url.openConnection();
+                //URLConnection yc = url.openConnection();
                 BufferedReader in = new BufferedReader(new InputStreamReader(
-                        yc.getInputStream(), StandardCharsets.UTF_8));
+                        url.openStream(), StandardCharsets.UTF_8));
                 String inputLine;
                 while (((inputLine = in.readLine()) != null) && cont < nNews) {
                     if ((inputLine.contains("<item>") && inputLine.contains("</item>")) && !merge) {
@@ -66,9 +68,9 @@ public class NewsPicker extends AsyncTask<String, Void, List<NewsItem>> {
                 e.printStackTrace();
             }
 
+            newsSearch.onBackgroundTaskCompleted(this.newsList);
             return this.newsList;
-        }
-        return null;
+
     }
     //public List<NewsItem> findNews(String link, int nNews){
 
@@ -183,5 +185,10 @@ public class NewsPicker extends AsyncTask<String, Void, List<NewsItem>> {
         NewsItem news = new NewsItem(title, img, direitosImg, description, body, originalLink, null, date);
 
         return news;
+    }
+
+    @Override
+    protected void onPostExecute(List<NewsItem> result) {
+       // newsSearch.onBackgroundTaskCompleted(result);
     }
 }

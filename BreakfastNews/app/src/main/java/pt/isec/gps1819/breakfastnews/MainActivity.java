@@ -51,17 +51,27 @@ public class MainActivity extends AppCompatActivity
     }
 
     public List<String> devolveKeywords(String text) {
-        String[] linha = text.split("\n");
-        String keywords[] = linha[0].split(",");
+        if(text != null) {
+            if(!text.isEmpty()) {
+                String[] linha = text.split("\n");
+                String [] keywords = linha[0].split(",");
 
-        return Arrays.asList(keywords);
+                return Arrays.asList(keywords);
+            }
+        }
+        return null;
     }
 
     public List<String> devolveJornalistas(String text) {
-        String[] linha = text.split("\n");
-        String jornalistas[] = linha[1].split(",");
+        if(text != null) {
+            if(!text.isEmpty()) {
+                String[] linha = text.split("\n");
+                String [] jornalistas = linha[1].split(",");
 
-        return Arrays.asList(jornalistas);
+                return Arrays.asList(jornalistas);
+            }
+        }
+        return null;
     }
 
     public String readFile(String file) {
@@ -79,6 +89,9 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "Error reading from file!", Toast.LENGTH_SHORT).show();
         }
 
+        if(text==null){
+            return null;
+        }
         return text;
     }
 
