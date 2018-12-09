@@ -88,12 +88,8 @@ public class MainActivity extends AppCompatActivity
             text = new String(buffer);
         } catch(Exception e) {
             e.printStackTrace();
-            Toast.makeText(getApplicationContext(), "Error reading from file!", Toast.LENGTH_SHORT).show();
         }
 
-        if(text==null){
-            return null;
-        }
         return text;
     }
 
@@ -110,9 +106,9 @@ public class MainActivity extends AppCompatActivity
             fos.write(keywords.getBytes());
             fos.write(enter.getBytes());
             fos.write(jornalistas.getBytes());
+            fos.write(enter.getBytes());
             CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox);
             if (checkBox.isChecked()) {
-                fos.write(enter.getBytes());
                 fos.write(hora.getBytes());
                 fos.write(enter.getBytes());
                 fos.write(minuto.getBytes());
