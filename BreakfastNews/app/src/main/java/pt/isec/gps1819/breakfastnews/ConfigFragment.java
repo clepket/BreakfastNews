@@ -71,8 +71,11 @@ public class ConfigFragment extends Fragment implements View.OnClickListener , T
         btn_config_guardar = (Button) v.findViewById(R.id.btn_config_guardar);
         image_btn_clock = (ImageButton) v.findViewById(R.id.image_btn_clock);
 
-        et_keywords.setText(linhas[0]);
-        et_journalists.setText(linhas[1]);
+        if(linhas.length > 1) {
+            et_keywords.setText(linhas[0]);
+            et_journalists.setText(linhas[1]);
+        }
+
         if(linhas.length > 2) {
             CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox);
 
@@ -96,7 +99,7 @@ public class ConfigFragment extends Fragment implements View.OnClickListener , T
                     Toast.makeText(getContext(), "Permission granted!", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), "Permission not granted!", Toast.LENGTH_SHORT).show();
-                    getActivity().finish();
+                    //getActivity().finish();
                 }
         }
     }
