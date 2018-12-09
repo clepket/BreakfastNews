@@ -14,10 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,11 +43,6 @@ public class OpenNewsFragment extends Fragment {
     private TextView mSubtitleTextView;
     private TextView mBodyTextView;
     private TextView mJournalistTextView;
-
-    /** This application's preferences */
-    private static SharedPreferences settings;
-    /** This application's settings editor*/
-    private static SharedPreferences.Editor editor;
 
     public static OpenNewsFragment newInstance(NewsItem singleNews) {
         bundle.putString("title", singleNews.getTitle());
@@ -106,13 +104,19 @@ public class OpenNewsFragment extends Fragment {
             mStarImageView =(ImageView) view.findViewById(R.id.starImageView);
             mStarImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_yellow_24dp, null));
 
-            FileOutputStream outputStream;
+
+            NewsItem favouriteNews = new NewsItem(title, image, "", subtitle, body, "", journalist, date);
 
             try {
-                outputStream = getContext().openFileOutput("favourites", Context.MODE_PRIVATE);
-                outputStream.write(bundle.toString().getBytes());
-                outputStream.close();
+                FileOutputStream fos = getContext().openFileOutput("favourites", Context.MODE_PRIVATE);
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(favouriteNews);
+                oos.close();
+
+                Toast.makeText( getContext(), "Saved to " + getContext().getFilesDir() + "/" + "favourites", Toast.LENGTH_LONG).show();
+
             } catch (Exception e) {
+                Toast.makeText( getContext(), "Error writing in file", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
 
@@ -121,6 +125,7 @@ public class OpenNewsFragment extends Fragment {
             mStarImageView =(ImageView) view.findViewById(R.id.starImageView);
             mStarImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_border_black_24dp, null));
         }
+
 
         mStarImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,12 +139,6 @@ public class OpenNewsFragment extends Fragment {
                     ft.detach(frg);
                     ft.attach(frg);
                     ft.commit();
-//                    //saveNews();
-//
-//                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-//                    String savedBeaconsAsString = preferences.getString("news", null);
-//                    Log.v("savedBeaconsAsString", savedBeaconsAsString);
-
                 }
                 else if(bundle.getBoolean("favourite")) {
                     bundle.putBoolean("favourite", false);

@@ -1,5 +1,7 @@
 package pt.isec.gps1819.breakfastnews;
 
+import java.io.Serializable;
+
 /**
  * Classe que serve como <i>dataset</i> das noticias a apresentar.
  *
@@ -8,13 +10,17 @@ package pt.isec.gps1819.breakfastnews;
  * @author Carlos Pinho
  * @name NewsItem.java
  */
-public class NewsItem {
+public class NewsItem implements Serializable {
     private static int counter = 0;
     private int id;
     private String title, description, body, image, journalist;
     private String url, imageRights;
     private boolean favourite;
     private String date;
+
+    public NewsItem() {
+
+    }
 
     public NewsItem(String title, String image, String imageRights, String description, String body, String url, String journalist, String date){
         this.id = counter++;
@@ -27,10 +33,6 @@ public class NewsItem {
         this.url = url;
         this.favourite = false;
         this.date = date;
-    }
-
-    public void setFavourite(boolean favourite) {
-        this.favourite = favourite;
     }
 
     public int getId() {
@@ -67,6 +69,34 @@ public class NewsItem {
 
     public String getDate() {
         return date;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void setJournalist(String journalist) {
+        this.journalist = journalist;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setFavourite(boolean favourite) {
+        this.favourite = favourite;
     }
 
     @Override
