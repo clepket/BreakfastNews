@@ -63,24 +63,25 @@ public class ConfigFragment extends Fragment implements View.OnClickListener , T
 
         buffer = ((MainActivity)getActivity()).readFile("perfil.txt");
 
-        linhas = buffer.split("\n");
-
         //variáveis para guardar perfil no ficheiro
         et_keywords = (EditText) v.findViewById(R.id.et_keywords);
         et_journalists = (EditText) v.findViewById(R.id.et_journalists);
         btn_config_guardar = (Button) v.findViewById(R.id.btn_config_guardar);
         image_btn_clock = (ImageButton) v.findViewById(R.id.image_btn_clock);
 
-        if(linhas.length > 1) {
-            et_keywords.setText(linhas[0]);
-            et_journalists.setText(linhas[1]);
-        }
+        if(buffer != null) {
+            linhas = buffer.split("\n");
 
-        if(linhas.length > 2) {
+            et_keywords.setText(linhas[0]);
             CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox);
 
-            checkBox.setText("Todos os dias às " + linhas[2] + "h" + linhas[3]);
-            checkBox.setChecked(true);
+            if(linhas.length > 1) {
+                et_journalists.setText(linhas[1]);
+                if(linhas.length > 2) {
+                    checkBox.setText("Todos os dias às " + linhas[2] + "h" + linhas[3]);
+                    checkBox.setChecked(true);
+                }
+            }
         }
 
         //button listener
