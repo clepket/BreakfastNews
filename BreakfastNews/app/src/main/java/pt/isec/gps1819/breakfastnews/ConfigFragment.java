@@ -85,7 +85,6 @@ public class ConfigFragment extends Fragment implements View.OnClickListener , T
                 checkBox.setChecked(true);
             }
         }
-        
 
         //button listener
         btn_config_guardar.setOnClickListener(this);
