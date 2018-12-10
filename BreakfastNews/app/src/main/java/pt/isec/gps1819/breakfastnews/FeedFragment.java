@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 
 /**
@@ -25,7 +27,7 @@ import java.util.List;
  * @version v1
  * @name FeedFragment.java
  */
-public class FeedFragment extends Fragment {
+public class FeedFragment extends Fragment implements Observer {
     private RecyclerView recyclerView;
     private NewsItemAdapter newsItemAdapter;
     private List<NewsItem> newsList;
@@ -55,8 +57,8 @@ public class FeedFragment extends Fragment {
     private void prepareNews(){
         NewsSearch newsSearch = new NewsSearch(5);
 
-        List<String> keywords = new ArrayList<String>();
-        List<String> jornalistas = new ArrayList<String>();
+        List<String> keywords = new ArrayList<>();
+        List<String> jornalistas = new ArrayList<>();
 
 
         String buffer = ((MainActivity)getActivity()).readFile("perfil.txt");
@@ -66,6 +68,7 @@ public class FeedFragment extends Fragment {
         keywords.add(" vai ");
         keywords.add(" a ");
 
+        newsList.clear();
         newsList.addAll(newsSearch.findNews(keywords, jornalistas));
         if(newsList==null) {
             newsList.add(new NewsItem(
@@ -83,6 +86,11 @@ public class FeedFragment extends Fragment {
                     "18/18/18"));
         }
         newsItemAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
     }
 
 

@@ -24,40 +24,45 @@ public class NewsSearch {
 
         boolean approved = false;
         newsPicker = new NewsPicker(this);
-        newsPicker.execute("http://feeds.ojogo.pt/OJ-Ultimas", ""+maxNews);
+        //http://feeds.ojogo.pt/OJ-Ultimas
+        //http://feeds.jn.pt/JN-Ultimas
+        newsPicker.execute("http://feeds.jn.pt/JN-Ultimas", ""+maxNews);
         //newsListPicked = newsPicker.doInBackground();
 
-        while(!validacao.equals("aprovado")){
-            for (NewsItem news : newsListPicked) {
-                if (keywords != null) {
-                    if (!keywords.isEmpty()) {
-                        for (String keyword : keywords) {
-                            if (news.getTitle().contains(keyword)) {
-                                approved = true;
-                            } else if (news.getDescription().contains(keyword)) {
-                                approved = true;
-                            } else if (news.getBody().contains(keyword)) {
-                                approved = true;
+        while(!validacao.equals("aprovado")) { }
+            if (newsListPicked!=null) {
+                for (NewsItem news : newsListPicked) {
+                    if (keywords != null) {
+                        if (!keywords.isEmpty()) {
+                            for (String keyword : keywords) {
+                                if (news.getTitle().contains(keyword)) {
+                                    approved = true;
+                                } else if (news.getDescription().contains(keyword)) {
+                                    approved = true;
+                                } else if (news.getBody().contains(keyword)) {
+                                    approved = true;
+                                }
                             }
                         }
                     }
-                }
-                if (journalists != null) {
-                    if (!journalists.isEmpty()) {
-                        for (String journalist : journalists) {
-                            if (news.getJournalist().contains(journalist)) {
-                                approved = true;
+                    if (journalists != null) {
+                        if (!journalists.isEmpty()) {
+                            for (String journalist : journalists) {
+                                if (news.getJournalist().contains(journalist)) {
+                                    approved = true;
+                                }
                             }
                         }
                     }
+                    if (approved) {
+                        selectedNewsList.add(news);
+                        approved = false;
+                    }
                 }
-                if (approved) {
-                    selectedNewsList.add(news);
-                    approved = false;
-                }
+                return this.selectedNewsList;
             }
-        }
-        return this.selectedNewsList;
+
+        return null;
     }
 
     public void onBackgroundTaskCompleted(List<NewsItem> listNews){
