@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
     int min ;
     String hora = " ";
     String minuto = " ";
-    CheckBox checkBox;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity
             fos.write(enter.getBytes());
             fos.write(jornalistas.getBytes());
             fos.write(enter.getBytes());
-            checkBox = findViewById(R.id.checkBox);
+            CheckBox checkBox = findViewById(R.id.checkBox);
             if (checkBox.isChecked()) {
                 fos.write(hora.getBytes());
                 fos.write(enter.getBytes());
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        checkBox = findViewById(R.id.checkBox);
+        CheckBox checkBox = findViewById(R.id.checkBox);
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, hourOfDay);
         c.set(Calendar.MINUTE, minute);
