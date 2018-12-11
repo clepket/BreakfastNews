@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity
 
     int hour ;
     int min ;
+    String hora = " ";
+    String minuto = " ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +120,13 @@ public class MainActivity extends AppCompatActivity
             fos.write(keywords.getBytes());
             fos.write(enter.getBytes());
             fos.write(jornalistas.getBytes());
+            fos.write(enter.getBytes());
+            CheckBox checkBox = findViewById(R.id.checkBox);
+            if (checkBox.isChecked()) {
+                fos.write(hora.getBytes());
+                fos.write(enter.getBytes());
+                fos.write(minuto.getBytes());
+            }
             fos.close();
             Toast.makeText(getApplicationContext(), "Saved!", Toast.LENGTH_SHORT).show();
 
@@ -173,6 +182,8 @@ public class MainActivity extends AppCompatActivity
         c.set(Calendar.SECOND, 0);
         hour = hourOfDay;
         min = minute;
+        hora = Integer.toString(hourOfDay);
+        minuto = Integer.toString(minute);
         checkBox.setText("Todos os dias às " + hourOfDay + "h" + minute);
         checkBox.setChecked(true);
 

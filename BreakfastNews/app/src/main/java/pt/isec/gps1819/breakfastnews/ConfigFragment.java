@@ -137,7 +137,6 @@ public class ConfigFragment extends Fragment implements View.OnClickListener  {
                 timePicker.show(getFragmentManager(), "time picker");
                 break;
             case R.id.checkBox:
-
                 if (checkBox.isChecked()){
                     Calendar c = Calendar.getInstance();
                     c.set(Calendar.HOUR_OF_DAY, hour);
