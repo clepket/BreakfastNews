@@ -61,18 +61,38 @@ public class OpenNewsFragment extends Fragment {
 
     private void readBundle(Bundle bundle) {
         if (bundle != null) {
-            title = bundle.getString("title");
-            date = bundle.getString("date");
-            image = bundle.getString("image");
-            subtitle = bundle.getString("subtitle");
-            body = bundle.getString("body");
+            if(bundle.getString("title")== null)
+                title = "";
+            else
+                title = bundle.getString("title");
+
+            if(bundle.getString("date")== null)
+                date = "";
+            else
+                date = bundle.getString("date");
+
+            if(bundle.getString("image")== null)
+                image = "";
+            else
+                image = bundle.getString("image");
+
+            favourite = bundle.getBoolean("favourite");
+
+            if(bundle.getString("subtitle")== null)
+                subtitle = "";
+            else
+                subtitle = bundle.getString("subtitle");
+
+            if(bundle.getString("body")== null)
+                body = "";
+            else
+                body = bundle.getString("body");
 
             if(bundle.getString("journalist")== null)
                 journalist = "";
             else
                 journalist = bundle.getString("journalist");
 
-            favourite = bundle.getBoolean("favourite");
         }
     }
 
