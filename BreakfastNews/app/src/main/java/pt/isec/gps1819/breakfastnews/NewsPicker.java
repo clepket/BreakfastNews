@@ -195,9 +195,19 @@ public class NewsPicker extends AsyncTask<String, Void, List<NewsItem>> {
                 } else
                     title += pesquisa.substring(1);
             } else if (pesquisa.contains("<img ") && !flagImg) { //PARA BUSCAR A IMAGEM
-                img = between(pesquisa, " src=", "alt");
+                img = "";
+                String auxImg = between(pesquisa, " src=", "alt");
+                List<String> aux = new ArrayList<>();
+                aux = Arrays.asList(auxImg.split("&amp;"));
+                for(int a=0; a<aux.size(); a++){
+                    if(a+1==aux.size()) {
+                        img += aux.get(a);
+                    }else {
+                        img += aux.get(a) + "&";
+                    }
+                }
+                img = img.substring(1, img.length()-2);
                 flagImg = true;
-                //finishDescription = true;
             } else if (pesquisa.contains("<p ") && pesquisa.contains("author") && flagImg && !flagDireitosImg) { //PARA BUSCAR OS DIREITOS DE AUTOR DA IMAGEM
                 direitosImg = pesquisa + "<";
                 direitosImg = between(direitosImg, ">", "<");

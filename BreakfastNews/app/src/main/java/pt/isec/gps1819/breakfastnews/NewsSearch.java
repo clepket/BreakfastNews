@@ -26,7 +26,7 @@ public class NewsSearch {
         newsPicker = new NewsPicker(this);
         //http://feeds.ojogo.pt/OJ-Ultimas
         //http://feeds.jn.pt/JN-Ultimas
-        newsPicker.execute("" + maxNews, "http://feeds.ojogo.pt/OJ-Ultimas", "http://feeds.jn.pt/JN-Ultimas");
+        newsPicker.execute("" + maxNews, "http://feeds.jn.pt/JN-Ultimas", "http://feeds.ojogo.pt/OJ-Ultimas");
 
         while (!validacao.equals("aprovado")) {
         }
