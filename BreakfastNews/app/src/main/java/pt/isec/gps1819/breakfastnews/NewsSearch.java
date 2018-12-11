@@ -37,11 +37,15 @@ public class NewsSearch {
                     if (keywords != null) {
                         if (!keywords.isEmpty()) {
                             for (String keyword : keywords) {
-                                if (news.getTitle().contains(keyword)) {
+                                String auxTitle = news.getTitle().toLowerCase();
+                                String auxDescription = news.getDescription().toLowerCase();
+                                String auxBody = news.getBody().toLowerCase();
+                                String auxKeyword = keyword.toLowerCase();
+                                if (auxTitle.contains(auxKeyword)) {
                                     approved = true;
-                                } else if (news.getDescription().contains(keyword)) {
+                                } else if (auxDescription.contains(auxKeyword)) {
                                     approved = true;
-                                } else if (news.getBody().contains(keyword)) {
+                                } else if (auxBody.contains(auxKeyword)) {
                                     approved = true;
                                 }
                             }

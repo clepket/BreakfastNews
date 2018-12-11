@@ -66,6 +66,12 @@ public class MainActivity extends AppCompatActivity
                 String[] linha = text.split("\n");
                 if(linha.length>=1) {
                     String[] keywords = linha[0].split(",");
+                    if (keywords.length>0) {
+                        for (int i = 0; i < keywords.length; i++) {
+                            keywords[i] = " " + keywords[i] + " ";
+                        }
+                    }
+
                     return Arrays.asList(keywords);
                 }
             }
