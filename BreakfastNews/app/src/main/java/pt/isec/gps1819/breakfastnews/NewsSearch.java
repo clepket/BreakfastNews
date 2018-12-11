@@ -50,8 +50,10 @@ public class NewsSearch {
                     if (journalists != null) {
                         if (!journalists.isEmpty()) {
                             for (String journalist : journalists) {
-                                if (news.getJournalist().contains(journalist)) {
-                                    approved = true;
+                                if(news.getJournalist()!=null) {
+                                    if (news.getJournalist().contains(journalist)) {
+                                        approved = true;
+                                    }
                                 }
                             }
                         }
