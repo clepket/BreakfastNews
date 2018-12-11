@@ -23,11 +23,11 @@ import java.util.Observer;
  * Fragmento da aplicação que irá apresentar o feed de noticias.
  *
  * @author Carlos Pinho
- * @since 2018-11-22
  * @version v1
  * @name FeedFragment.java
+ * @since 2018-11-22
  */
-public class FeedFragment extends Fragment implements Observer {
+public class FeedFragment extends Fragment {
     private RecyclerView recyclerView;
     private NewsItemAdapter newsItemAdapter;
     private List<NewsItem> newsList;
@@ -54,23 +54,26 @@ public class FeedFragment extends Fragment implements Observer {
         return thisView;
     }
 
-    private void prepareNews(){
+    private void prepareNews() {
         NewsSearch newsSearch = new NewsSearch(5);
 
-        List<String> keywords = new ArrayList<>();
-        List<String> jornalistas = new ArrayList<>();
+        List<String> keywords;
+        List<String> jornalistas;
 
 
-        String buffer = ((MainActivity)getActivity()).readFile("perfil.txt");
-        //keywords = ((MainActivity)getActivity()).devolveKeywords(buffer);
-        //jornalistas = ((MainActivity)getActivity()).devolveJornalistas(buffer);
-
-        keywords.add(" vai ");
-        keywords.add(" a ");
+        String buffer = ((MainActivity) getActivity()).readFile("perfil.txt");
+        keywords = ((MainActivity)getActivity()).devolveKeywords(buffer);
+        if(keywords == null){
+            keywords = new ArrayList<>();
+        }
+        jornalistas = ((MainActivity)getActivity()).devolveJornalistas(buffer);
+        if(jornalistas == null){
+            jornalistas = new ArrayList<>();
+        }
 
         newsList.clear();
         newsList.addAll(newsSearch.findNews(keywords, jornalistas));
-        if(newsList==null) {
+        if (newsList == null) {
             newsList.add(new NewsItem(
                     "Javier Zanetti: «Era capaz de levantar 500 quilos!»",
                     "https://cdn.record.pt/images/2018-11/img_920x518$2018_11_25_20_25_17_1476525.jpg",
@@ -86,11 +89,6 @@ public class FeedFragment extends Fragment implements Observer {
                     "18/18/18"));
         }
         newsItemAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-
     }
 
 

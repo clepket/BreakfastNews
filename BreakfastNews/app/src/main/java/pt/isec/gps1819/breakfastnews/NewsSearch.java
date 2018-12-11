@@ -13,7 +13,7 @@ public class NewsSearch {
     private List<NewsItem> selectedNewsList;
     private int maxNews;
 
-    public NewsSearch(int max){
+    public NewsSearch(int max) {
         this.newsListPicked = new ArrayList<>();
         this.selectedNewsList = new ArrayList<>();
         this.maxNews = max;
@@ -26,12 +26,14 @@ public class NewsSearch {
         newsPicker = new NewsPicker(this);
         //http://feeds.ojogo.pt/OJ-Ultimas
         //http://feeds.jn.pt/JN-Ultimas
-        newsPicker.execute("http://feeds.jn.pt/JN-Ultimas", ""+maxNews);
-        //newsListPicked = newsPicker.doInBackground();
+        newsPicker.execute("" + maxNews, "http://feeds.ojogo.pt/OJ-Ultimas", "http://feeds.jn.pt/JN-Ultimas");
 
-        while(!validacao.equals("aprovado")) { }
-            if (newsListPicked!=null) {
-                for (NewsItem news : newsListPicked) {
+        while (!validacao.equals("aprovado")) {
+        }
+        if (newsListPicked != null) {
+            int cont =0;
+            for (NewsItem news : newsListPicked) {
+                if (cont < maxNews) {
                     if (keywords != null) {
                         if (!keywords.isEmpty()) {
                             for (String keyword : keywords) {
@@ -56,16 +58,19 @@ public class NewsSearch {
                     }
                     if (approved) {
                         selectedNewsList.add(news);
+                        cont++;
                         approved = false;
                     }
-                }
-                return this.selectedNewsList;
+                }else
+                    break;
             }
+            return this.selectedNewsList;
+        }
 
         return null;
     }
 
-    public void onBackgroundTaskCompleted(List<NewsItem> listNews){
+    public void onBackgroundTaskCompleted(List<NewsItem> listNews) {
         newsListPicked.clear();
         this.newsListPicked = listNews;
         validacao = new String("aprovado");

@@ -57,9 +57,10 @@ public class MainActivity extends AppCompatActivity
         if(text != null) {
             if(!text.isEmpty()) {
                 String[] linha = text.split("\n");
-                String [] keywords = linha[0].split(",");
-
-                return Arrays.asList(keywords);
+                if(linha.length>=1) {
+                    String[] keywords = linha[0].split(",");
+                    return Arrays.asList(keywords);
+                }
             }
         }
         return null;
@@ -69,9 +70,10 @@ public class MainActivity extends AppCompatActivity
         if(text != null) {
             if(!text.isEmpty()) {
                 String[] linha = text.split("\n");
-                String [] jornalistas = linha[1].split(",");
-
-                return Arrays.asList(jornalistas);
+                if(linha.length>=2) {
+                    String[] jornalistas = linha[1].split(",");
+                    return Arrays.asList(jornalistas);
+                }
             }
         }
         return null;
@@ -90,7 +92,9 @@ public class MainActivity extends AppCompatActivity
         } catch(Exception e) {
             e.printStackTrace();
         }
-
+        if(text.length()==0){
+            return null;
+        }
         return text;
     }
 

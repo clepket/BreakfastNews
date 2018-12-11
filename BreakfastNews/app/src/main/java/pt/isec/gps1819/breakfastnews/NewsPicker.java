@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
@@ -17,65 +19,70 @@ public class NewsPicker extends AsyncTask<String, Void, List<NewsItem>> {
     private List<NewsItem> newsList;
     private String url = null;
 
-    public NewsPicker(NewsSearch newsSearch){
+    public NewsPicker(NewsSearch newsSearch) {
         this.newsSearch = newsSearch;
         newsList = new ArrayList<>();
     }
 
     @Override
     protected List<NewsItem> doInBackground(String... strings) {
+        newsList.clear();
+        int nNews = Integer.parseInt(strings[0]);
 
-            newsList.clear();
-            String link = strings[0];
-            int nNews = Integer.parseInt(strings[1]);
+        int cont = 0;
+
+        for (int i = 1; i < strings.length && cont < nNews; i++) {
 
             URL url = null;
             String newsText = null;
             boolean merge = false;
-            int cont = 0;
-            try {
-                url = new URL(link);
-                //URLConnection yc = url.openConnection();
-                BufferedReader in = new BufferedReader(new InputStreamReader(
-                        url.openStream(), StandardCharsets.UTF_8));
-                String inputLine;
-                while (((inputLine = in.readLine()) != null) && cont < nNews) {
-                    if ((inputLine.contains("<item>") && inputLine.contains("</item>")) && !merge) {
-                        NewsItem news = getNews(inputLine);
-                        if (news != null) {
-                            System.out.println(news.toString());
-                            this.newsList.add(news);
-                            cont++;
-                        }
-                    } else {
-                        if (!merge) {
-                            newsText = inputLine;
-                            merge = true;
-                        } else {
-                            newsText += inputLine;
 
-                            NewsItem news = getNews(newsText);
+            try {
+                url = new URL(strings[i]);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setDoInput(true);
+                int statusCode = urlConnection.getResponseCode();
+                if (statusCode == 200) {
+                    BufferedReader in = new BufferedReader(new InputStreamReader(
+                            urlConnection.getInputStream(), StandardCharsets.UTF_8));
+                    String inputLine;
+                    while (((inputLine = in.readLine()) != null) && cont < nNews) {
+                        if ((inputLine.contains("<item>") && inputLine.contains("</item>")) && !merge) {
+                            NewsItem news = getNews(inputLine);
                             if (news != null) {
                                 System.out.println(news.toString());
                                 this.newsList.add(news);
                                 cont++;
                             }
-                            merge = false;
+                        } else {
+                            if (!merge) {
+                                newsText = inputLine;
+                                merge = true;
+                            } else {
+                                newsText += inputLine;
+
+                                NewsItem news = getNews(newsText);
+                                if (news != null) {
+                                    System.out.println(news.toString());
+                                    this.newsList.add(news);
+                                    cont++;
+                                }
+                                merge = false;
+                            }
                         }
                     }
+                    in.close();
                 }
-                in.close();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            newsSearch.onBackgroundTaskCompleted(this.newsList);
-            return this.newsList;
+        }
+        newsSearch.onBackgroundTaskCompleted(this.newsList);
+        return this.newsList;
 
     }
-    //public List<NewsItem> findNews(String link, int nNews){
-
-    //}
 
     private static String between(String value, String a, String b) {
         // Return a substring between the two strings.
@@ -204,7 +211,7 @@ public class NewsPicker extends AsyncTask<String, Void, List<NewsItem>> {
                     finishDescription = true;
                 } else
                     description += pesquisa.substring(1);
-            } else if ((pesquisa.contains("<p ")  || pesquisa.contains("</p>")) && !finishDescription) {//PARA OBTER A DESCRIÇÃO DA NOTICIA
+            } else if ((pesquisa.contains("<p ") || pesquisa.contains("</p>")) && !finishDescription) {//PARA OBTER A DESCRIÇÃO DA NOTICIA
                 if (pesquisa.contains("</p>")) {
                     description += pesquisa.substring(0, pesquisa.length() - 2);
                     description = between(description, ">", "<");
@@ -212,7 +219,7 @@ public class NewsPicker extends AsyncTask<String, Void, List<NewsItem>> {
                 } else
                     description += pesquisa.substring(1);
             } else if (pesquisa.contains("<p>") && !finishBody && finishDescription) {//PARA BUSCAR O CORPO DA NOTICIA
-                body += "\t\t\t" + after(pesquisa,"<p>") + "\n";
+                body += "\t\t\t" + after(pesquisa, "<p>") + "\n";
                 if (!split.get(cont + 2).contains("</p>") && !split.get(cont + 1).contains("aside")) {
                     finishBody = true;
                 }
@@ -231,10 +238,5 @@ public class NewsPicker extends AsyncTask<String, Void, List<NewsItem>> {
         NewsItem news = new NewsItem(title, img, direitosImg, description, body, originalLink, null, date);
 
         return news;
-    }
-
-    @Override
-    protected void onPostExecute(List<NewsItem> result) {
-       // newsSearch.onBackgroundTaskCompleted(result);
     }
 }

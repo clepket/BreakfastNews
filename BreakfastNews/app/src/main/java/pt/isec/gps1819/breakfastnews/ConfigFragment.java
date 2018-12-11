@@ -71,15 +71,16 @@ public class ConfigFragment extends Fragment implements View.OnClickListener , T
 
         if(buffer != null) {
             linhas = buffer.split("\n");
+            if(linhas!=null && linhas.length>0) {
+                et_keywords.setText(linhas[0]);
+                CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox);
 
-            et_keywords.setText(linhas[0]);
-            CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox);
-
-            if(linhas.length > 1) {
-                et_journalists.setText(linhas[1]);
-                if(linhas.length > 2) {
-                    checkBox.setText("Todos os dias às " + linhas[2] + "h" + linhas[3]);
-                    checkBox.setChecked(true);
+                if (linhas.length > 1) {
+                    et_journalists.setText(linhas[1]);
+                    if (linhas.length > 2) {
+                        checkBox.setText("Todos os dias às " + linhas[2] + "h" + linhas[3]);
+                        checkBox.setChecked(true);
+                    }
                 }
             }
         }
