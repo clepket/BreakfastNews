@@ -31,21 +31,25 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.Calendar;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ConfigFragment extends Fragment implements View.OnClickListener , TimePickerDialog.OnTimeSetListener {
+public class ConfigFragment extends Fragment implements View.OnClickListener  {
 
 
     public ConfigFragment() {
         // Required empty public constructor
     }
-
+    Integer hour = 19;
+    Integer min = 30;
     EditText et_keywords, et_journalists;
     Button btn_config_guardar;
     ImageButton image_btn_clock;
+    CheckBox checkBox;
+    public MainActivity mainQuiz;
 
 
     @Override
@@ -68,6 +72,7 @@ public class ConfigFragment extends Fragment implements View.OnClickListener , T
         et_journalists = (EditText) v.findViewById(R.id.et_journalists);
         btn_config_guardar = (Button) v.findViewById(R.id.btn_config_guardar);
         image_btn_clock = (ImageButton) v.findViewById(R.id.image_btn_clock);
+        checkBox = v.findViewById(R.id.checkBox);
 
         if(buffer != null) {
             linhas = buffer.split("\n");
@@ -84,6 +89,8 @@ public class ConfigFragment extends Fragment implements View.OnClickListener , T
                 }
             }
         }
+
+        checkBox.setOnClickListener(this);
 
         //button listener
         btn_config_guardar.setOnClickListener(this);
@@ -108,6 +115,9 @@ public class ConfigFragment extends Fragment implements View.OnClickListener , T
 
     @Override
     public void onClick(View v) {
+        mainQuiz = (MainActivity)getActivity();
+        hour = mainQuiz.hour;
+        min = mainQuiz.min;
         switch (v.getId()) {
             case R.id.btn_config_guardar:
                 String keywords = et_keywords.getText().toString();
@@ -126,12 +136,22 @@ public class ConfigFragment extends Fragment implements View.OnClickListener , T
                 DialogFragment timePicker = new TimePickerFragment();
                 timePicker.show(getFragmentManager(), "time picker");
                 break;
+            case R.id.checkBox:
+
+                if (checkBox.isChecked()){
+                    Calendar c = Calendar.getInstance();
+                    c.set(Calendar.HOUR_OF_DAY, hour);
+                    c.set(Calendar.MINUTE, min);
+                    c.set(Calendar.SECOND, 0);
+
+                    mainQuiz.setAlarm(c);
+                    Toast.makeText(getContext(), "Alarme para as "+ hour+min , Toast.LENGTH_SHORT).show();
+                }else{
+                    mainQuiz.alarmCancel();
+                    Toast.makeText(getContext(), "Alarme cancelado!" , Toast.LENGTH_SHORT).show();
+                }
+                break;
         }
     }
 
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkBox);
-        checkBox.setText("Todos os dias às " + hourOfDay + "h" + minute);
-    }
 }
