@@ -44,7 +44,7 @@ public class FavoriteFragment extends Fragment {
         View thisView = inflater.inflate(R.layout.fragment_favorite, container, false);
 
         recyclerView = thisView.findViewById(R.id.recyclerViewFavouriteNews);
-        
+
         prepareNews();
         newsItemAdapter = new NewsItemAdapter(getContext(), newsFavoriteList);
 
