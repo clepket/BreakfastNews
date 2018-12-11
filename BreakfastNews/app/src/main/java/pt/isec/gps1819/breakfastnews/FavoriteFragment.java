@@ -33,18 +33,20 @@ public class FavoriteFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private NewsItemAdapter newsItemAdapter;
-    private List<NewsItem> newsList;
+    private List<NewsItem> newsFavoriteList;
 
     public FavoriteFragment() {
-        newsList = new ArrayList<>();
+        newsFavoriteList = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View thisView = inflater.inflate(R.layout.fragment_feed, container, false);
+        View thisView = inflater.inflate(R.layout.fragment_favorite, container, false);
 
-        recyclerView = (RecyclerView) thisView.findViewById(R.id.recyclerViewNews);
-        newsItemAdapter = new NewsItemAdapter(getContext(), newsList);
+        recyclerView = thisView.findViewById(R.id.recyclerViewFavouriteNews);
+        
+        prepareNews();
+        newsItemAdapter = new NewsItemAdapter(getContext(), newsFavoriteList);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 1);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -52,51 +54,23 @@ public class FavoriteFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(newsItemAdapter);
 
-        prepareNews();
-
         return thisView;
     }
 
     private void prepareNews(){
-
-        NewsItem news = new NewsItem();
-
-        FileInputStream fis = null;
+        FileInputStream fis;
         try {
             fis = getContext().openFileInput("favourites");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            newsFavoriteList = (ArrayList<NewsItem>) ois.readObject();
+            ois.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        ObjectInputStream is = null;
-        try {
-            is = new ObjectInputStream(fis);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        try {
-            news = (NewsItem) is.readObject();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        try {
-            is.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            fis.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        if(newsList==null) {
-            newsList.add(news);
-            Toast.makeText( getContext(), "news added", Toast.LENGTH_LONG).show();
-        }
-
-        newsItemAdapter.notifyDataSetChanged();
     }
 
 
