@@ -33,7 +33,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener , TimePickerDialog.OnTimeSetListener {
 
-    int  hour ;
+    int hour ;
     int min ;
     String hora = " ";
     String minuto = " ";
@@ -206,5 +206,6 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(this, AlertReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
 
+        alarmManager.cancel(pendingIntent);
     }
 }
