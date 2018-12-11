@@ -92,7 +92,9 @@ public class MainActivity extends AppCompatActivity
         } catch(Exception e) {
             e.printStackTrace();
         }
-        if(text.length()==0){
+        if(text == null)
+            return null;
+        else if(text.length()==0){
             return null;
         }
         return text;
