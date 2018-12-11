@@ -19,8 +19,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +46,8 @@ public class OpenNewsFragment extends Fragment {
     private TextView mSubtitleTextView;
     private TextView mBodyTextView;
     private TextView mJournalistTextView;
+
+    private List<NewsItem> favouriteNewsList;
 
     public static OpenNewsFragment newInstance(NewsItem singleNews) {
         bundle.putString("title", singleNews.getTitle());
@@ -124,13 +129,15 @@ public class OpenNewsFragment extends Fragment {
             mStarImageView =(ImageView) view.findViewById(R.id.starImageView);
             mStarImageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_yellow_24dp, null));
 
-
+            favouriteNewsList = new ArrayList<>();
             NewsItem favouriteNews = new NewsItem(title, image, "", subtitle, body, "", journalist, date);
+            favouriteNewsList.add(favouriteNews);
+
 
             try {
                 FileOutputStream fos = getContext().openFileOutput("favourites", Context.MODE_PRIVATE);
                 ObjectOutputStream oos = new ObjectOutputStream(fos);
-                oos.writeObject(favouriteNews);
+                oos.writeObject(favouriteNewsList);
                 oos.close();
 
                 Toast.makeText( getContext(), "Saved to " + getContext().getFilesDir() + "/" + "favourites", Toast.LENGTH_LONG).show();
