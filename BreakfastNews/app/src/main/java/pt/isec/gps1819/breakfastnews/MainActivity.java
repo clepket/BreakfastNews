@@ -31,10 +31,10 @@ import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener , TimePickerDialog.OnTimeSetListener {
+        implements NavigationView.OnNavigationItemSelectedListener, TimePickerDialog.OnTimeSetListener {
 
-    int hour ;
-    int min ;
+    int hour;
+    int min;
     String hora = " ";
     String minuto = " ";
 
@@ -61,14 +61,22 @@ public class MainActivity extends AppCompatActivity
     }
 
     public List<String> devolveKeywords(String text) {
-        if(text != null) {
-            if(!text.isEmpty()) {
+        if (text != null) {
+            if (!text.isEmpty()) {
                 String[] linha = text.split("\n");
-                if(linha.length>=1) {
+                if (linha.length >= 1) {
                     String[] keywords = linha[0].split(",");
-                    if (keywords.length>0) {
+
+                    if (keywords.length > 0) {
                         for (int i = 0; i < keywords.length; i++) {
-                            keywords[i] = " " + keywords[i] + " ";
+                            String[] auxKeywords = keywords[i].split(" ");
+                            keywords[i] = " ";
+                            for (int j = 0; j < auxKeywords.length; j++) {
+                                auxKeywords[j] = auxKeywords[j].replace(" ", "");
+                                if(!auxKeywords[j].equals("")) {
+                                    keywords[i] += auxKeywords[j] + " ";
+                                }
+                            }
                         }
                     }
 
@@ -80,10 +88,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     public List<String> devolveJornalistas(String text) {
-        if(text != null) {
-            if(!text.isEmpty()) {
+        if (text != null) {
+            if (!text.isEmpty()) {
                 String[] linha = text.split("\n");
-                if(linha.length>=2) {
+                if (linha.length >= 2) {
                     String[] jornalistas = linha[1].split(",");
                     return Arrays.asList(jornalistas);
                 }
@@ -102,12 +110,12 @@ public class MainActivity extends AppCompatActivity
             fis.read(buffer);
             fis.close();
             text = new String(buffer);
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        if(text == null)
+        if (text == null)
             return null;
-        else if(text.length()==0){
+        else if (text.length() == 0) {
             return null;
         }
         return text;
@@ -160,7 +168,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         FragmentManager fragmentManager = getSupportFragmentManager();
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_feed:
                 //setTitle(getResources().getString(R.string.app_name) + " - " + getResources().getString(R.string.frag_title_feed));
                 fragmentManager.beginTransaction().replace(R.id.fragment, new FeedFragment()).commit();
@@ -193,13 +201,13 @@ public class MainActivity extends AppCompatActivity
         checkBox.setText("Todos os dias às " + hourOfDay + "h" + minute);
         checkBox.setChecked(true);
 
-        if(checkBox.isChecked()) {
+        if (checkBox.isChecked()) {
             setAlarm(c);
-            Toast.makeText(this, "Alarme para as "+ hour+ "h"+min, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Alarme para as " + hour + "h" + min, Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void setAlarm(Calendar c){
+    public void setAlarm(Calendar c) {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlertReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);

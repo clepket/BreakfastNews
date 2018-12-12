@@ -15,12 +15,12 @@ import java.util.Arrays;
 import java.util.List;
 
 public class NewsPicker extends AsyncTask<String, Void, List<NewsItem>> {
-    private NewsSearch newsSearch;
+    FeedFragment feedFragment;
     private List<NewsItem> newsList;
     private String url = null;
 
-    public NewsPicker(NewsSearch newsSearch) {
-        this.newsSearch = newsSearch;
+    public NewsPicker(FeedFragment feedFragment) {
+        this.feedFragment = feedFragment;
         newsList = new ArrayList<>();
     }
 
@@ -79,7 +79,7 @@ public class NewsPicker extends AsyncTask<String, Void, List<NewsItem>> {
                 e.printStackTrace();
             }
         }
-        newsSearch.onBackgroundTaskCompleted(this.newsList);
+        //newsSearch.onBackgroundTaskCompleted(this.newsList);
         return this.newsList;
 
     }
@@ -248,5 +248,11 @@ public class NewsPicker extends AsyncTask<String, Void, List<NewsItem>> {
         NewsItem news = new NewsItem(title, img, direitosImg, description, body, originalLink, null, date);
 
         return news;
+    }
+
+    @Override
+    protected void onPostExecute(List<NewsItem> result){
+        super.onPostExecute(result);
+        feedFragment.setNewsList(result);
     }
 }
