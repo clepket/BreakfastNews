@@ -49,10 +49,19 @@ public class NewsPicker extends AsyncTask<String, Void, List<NewsItem>> {
                     while (((inputLine = in.readLine()) != null) && cont < nNews) {
                         if ((inputLine.contains("<item>") && inputLine.contains("</item>")) && !merge) {
                             NewsItem news = getNews(inputLine);
+                            boolean dontAdd = false;
                             if (news != null) {
-                                System.out.println(news.toString());
-                                this.newsList.add(news);
-                                cont++;
+                                if(news.getTitle()!= null){
+                                    for(NewsItem n: newsList){
+                                        if(n.getTitle().equals(news.getTitle())){
+                                            dontAdd = true;
+                                        }
+                                    }
+                                    if(!news.getBody().equals("") && !dontAdd) {
+                                        this.newsList.add(news);
+                                        cont++;
+                                    }
+                                }
                             }
                         } else {
                             if (!merge) {
@@ -60,12 +69,20 @@ public class NewsPicker extends AsyncTask<String, Void, List<NewsItem>> {
                                 merge = true;
                             } else {
                                 newsText += inputLine;
-
+                                boolean dontAdd = false;
                                 NewsItem news = getNews(newsText);
                                 if (news != null) {
-                                    System.out.println(news.toString());
-                                    this.newsList.add(news);
-                                    cont++;
+                                    if(news.getTitle()!= null){
+                                        for(NewsItem n: newsList){
+                                            if(n.getTitle().equals(news.getTitle())){
+                                                dontAdd = true;
+                                            }
+                                        }
+                                        if(!news.getBody().equals("") && !dontAdd) {
+                                            this.newsList.add(news);
+                                            cont++;
+                                        }
+                                    }
                                 }
                                 merge = false;
                             }
@@ -195,18 +212,11 @@ public class NewsPicker extends AsyncTask<String, Void, List<NewsItem>> {
                 } else
                     title += pesquisa.substring(1);
             } else if (pesquisa.contains("<img ") && !flagImg) { //PARA BUSCAR A IMAGEM
-                img = "";
-                String auxImg = between(pesquisa, " src=", "alt");
-                List<String> aux = new ArrayList<>();
-                aux = Arrays.asList(auxImg.split("&amp;"));
-                for(int a=0; a<aux.size(); a++){
-                    if(a+1==aux.size()) {
-                        img += aux.get(a);
-                    }else {
-                        img += aux.get(a) + "&";
-                    }
+                img = between(pesquisa, " src=", "alt");
+                if(!img.equals("")) {
+                    img = img.replace("&amp;", "&");
+                    img = img.substring(1, img.length() - 2);
                 }
-                img = img.substring(1, img.length()-2);
                 flagImg = true;
             } else if (pesquisa.contains("<p ") && pesquisa.contains("author") && flagImg && !flagDireitosImg) { //PARA BUSCAR OS DIREITOS DE AUTOR DA IMAGEM
                 direitosImg = pesquisa + "<";

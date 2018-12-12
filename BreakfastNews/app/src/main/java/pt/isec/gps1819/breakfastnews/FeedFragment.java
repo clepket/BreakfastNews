@@ -136,16 +136,18 @@ public class FeedFragment extends Fragment {
                     if (keywords != null) {
                         if (!keywords.isEmpty()) {
                             for (String keyword : keywords) {
-                                String auxTitle = news.getTitle().toLowerCase();
-                                String auxDescription = news.getDescription().toLowerCase();
-                                String auxBody = news.getBody().toLowerCase();
-                                String auxKeyword = keyword.toLowerCase();
-                                if (auxTitle.contains(auxKeyword)) {
-                                    approved = true;
-                                } else if (auxDescription.contains(auxKeyword)) {
-                                    approved = true;
-                                } else if (auxBody.contains(auxKeyword)) {
-                                    approved = true;
+                                if (!keyword.equals(" ")) {
+                                    String auxTitle = news.getTitle().toLowerCase();
+                                    String auxDescription = news.getDescription().toLowerCase();
+                                    String auxBody = news.getBody().toLowerCase();
+                                    String auxKeyword = keyword.toLowerCase();
+                                    if (auxTitle.contains(auxKeyword)) {
+                                        approved = true;
+                                    } else if (auxDescription.contains(auxKeyword)) {
+                                        approved = true;
+                                    } else if (auxBody.contains(auxKeyword)) {
+                                        approved = true;
+                                    }
                                 }
                             }
                         }
