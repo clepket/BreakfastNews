@@ -117,11 +117,11 @@ public class OpenNewsFragment extends Fragment {
 
         readBundle(getArguments());
 
-        mTitleTextView.setText(String.format(title));
-        mDateTextView.setText(String.format(date));
-        mSubtitleTextView.setText(String.format(subtitle));
-        mBodyTextView.setText(String.format(body));
-        mJournalistTextView.setText(String.format(journalist));
+        mTitleTextView.setText(title);
+        mDateTextView.setText(date);
+        mSubtitleTextView.setText(subtitle);
+        mBodyTextView.setText(body);
+        mJournalistTextView.setText(journalist);
 
         Glide.with(getContext())
                 .load(image)

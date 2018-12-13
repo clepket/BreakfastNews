@@ -1,6 +1,7 @@
 package pt.isec.gps1819.breakfastnews;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,9 +41,15 @@ public class NewsPicker extends AsyncTask<String, Void, List<NewsItem>> {
             try {
                 url = new URL(strings[i]);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+                urlConnection.setReadTimeout(10000 /* milisegundos */);
+                urlConnection.setConnectTimeout(15000 /* milisegundos */);
+                urlConnection.setRequestMethod("GET");
                 urlConnection.setDoInput(true);
+                urlConnection.connect();
+
                 int statusCode = urlConnection.getResponseCode();
-                if (statusCode == 200) {
+                if (statusCode == HttpURLConnection.HTTP_OK) {
                     BufferedReader in = new BufferedReader(new InputStreamReader(
                             urlConnection.getInputStream(), StandardCharsets.UTF_8));
                     String inputLine;
@@ -58,6 +65,7 @@ public class NewsPicker extends AsyncTask<String, Void, List<NewsItem>> {
                                         }
                                     }
                                     if(!news.getBody().equals("") && !dontAdd) {
+                                        Log.i("Noticia: ",news.toString());
                                         this.newsList.add(news);
                                         cont++;
                                     }
@@ -79,6 +87,7 @@ public class NewsPicker extends AsyncTask<String, Void, List<NewsItem>> {
                                             }
                                         }
                                         if(!news.getBody().equals("") && !dontAdd) {
+                                            Log.i("Noticia: ",news.toString());
                                             this.newsList.add(news);
                                             cont++;
                                         }
