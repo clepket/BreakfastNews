@@ -3,7 +3,9 @@ package pt.isec.gps1819.breakfastnews;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -120,14 +122,30 @@ public class ConfigFragment extends Fragment implements View.OnClickListener  {
         min = mainQuiz.min;
         switch (v.getId()) {
             case R.id.btn_config_guardar:
-                String keywords = et_keywords.getText().toString();
-                String jornalistas = et_journalists.getText().toString();
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setMessage("Deseja realmente guardar?");
+                builder.setPositiveButton("Sim", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String keywords = et_keywords.getText().toString();
+                        String jornalistas = et_journalists.getText().toString();
 
-                mainQuiz.saveTextAsFile("/data/user/0/pt.isec.gps1819.breakfastnews/files/perfil.txt", keywords, jornalistas);
+                        mainQuiz.saveTextAsFile("/data/user/0/pt.isec.gps1819.breakfastnews/files/perfil.txt", keywords, jornalistas);
 
-                FeedFragment feedFragment = new FeedFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.fragment, feedFragment, feedFragment.getTag()).commit();
+                        FeedFragment feedFragment = new FeedFragment();
+                        FragmentManager fragmentManager = getFragmentManager();
+                        fragmentManager.beginTransaction().replace(R.id.fragment, feedFragment, feedFragment.getTag()).commit();
+                        Toast.makeText(getContext(), "Perfil guardado com sucesso!" , Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(), "Alterações descartadas!" , Toast.LENGTH_SHORT).show();
+                        }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
                 break;
 
             case R.id.image_btn_clock:
@@ -144,7 +162,7 @@ public class ConfigFragment extends Fragment implements View.OnClickListener  {
                     c.set(Calendar.SECOND, 0);
 
                     mainQuiz.setAlarm(c);
-                    Toast.makeText(getContext(), "Alarme para as "+ hour+min , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Alarme para as "+ hour+"h"+min , Toast.LENGTH_SHORT).show();
                 }else{
                     mainQuiz.alarmCancel();
                     Toast.makeText(getContext(), "Alarme cancelado!" , Toast.LENGTH_SHORT).show();
